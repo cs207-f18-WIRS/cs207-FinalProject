@@ -4,15 +4,24 @@ include in your document along with some prompts that you may want to address.
 
 ### Introduction
 Describe problem the software solves and why it's important to solve that problem
+ - TODO
 
 ### Background
 Describe (briefly) the mathematical background and concepts as you see fit.  You **do not** need to
 give a treatise on automatic differentation or dual numbers.  Just give the essential ideas (e.g.
 the chain rule, the graph structure of calculations, elementary functions, etc).
-
+ - TODO
+ 
 ### How to Use *PackageName*
 How do you envision that a user will interact with your package?  What should they import?  How can
 they instantiate AD objects?
+
+The user should type the following commands in the python:
+  - import AD as grad       # Import module
+  - f='e^(x^2)+y'           # Create a function
+  - varlist=[x,y]           # Define list of variables in f
+  - AD_obj=grad(f,varlist)  # Instatiate AD object ( if grad(f,varlist) can't parse f as a valid function raise exception )
+  - AD_obj([1.0,2])         # Calculate the automatic differentation at x=1.0 and y=2.0 (only if len(list)=len(varlist)
 
 **Note: This section should be a mix of pseudo code and text.  It should not include any actual
 operations yet.**
