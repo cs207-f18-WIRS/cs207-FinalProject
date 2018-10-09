@@ -12,7 +12,7 @@ give a treatise on automatic differentation or dual numbers.  Just give the esse
 the chain rule, the graph structure of calculations, elementary functions, etc).
  - TODO
  
-### How to Use *PackageName*
+### How to Use AD
 How do you envision that a user will interact with your package?  What should they import?  How can
 they instantiate AD objects?
 
@@ -34,7 +34,9 @@ Discuss how you plan on organizing your software package.
 * What modules do you plan on including?  What is their basic functionality?
 * Where will your test suite live?  Will you use `TravisCI`? `Coveralls`?
 * How will you distribute your package (e.g. `PyPI`)?
-- home_directory
+
+* Directory Structure:
+home_directory
   - AD 
     - AST_builder/parser
     - Differentiator
@@ -42,9 +44,11 @@ Discuss how you plan on organizing your software package.
   - Tests
     - AST_builder/parser test
     - Differentiator test
-  - Interface test
+    - Interface test
   - Documention
   - Examples
+* The test suite will receide in the Test sub-directory: both `TravisCI` and `Coveralls` will be used.
+* We will distribute the package through `PyPI`
 
 ### Implementation
 Discuss how you plan on implementing the forward mode of automatic differentiation.
@@ -53,6 +57,23 @@ Discuss how you plan on implementing the forward mode of automatic differentiati
 * What method and name attributes will your classes have?
 * What external dependencies will you rely on?
 * How will you deal with elementary functions like `sin` and `exp`?
+
+* Data structures
+  - Value
+    - VARIABLES
+    - FLOATS
+  - BinOp
+    - ADD
+    - MINUS
+    - MUL
+    - DIV
+  - UnOp
+    - SIN
+    - COS
+    - TAN
+    - EXP
+    - LOG
+Parentheses somewhere?
 
 Be sure to consider a variety of use cases.  For example, don't limit your design to scalar
 functions of scalar values.  Make sure you can handle the situations of vector functions of vectors and
