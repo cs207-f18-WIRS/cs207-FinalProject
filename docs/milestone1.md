@@ -18,11 +18,11 @@ they instantiate AD objects?
 
 The user should type the following commands in the python:
 ```python
->>> import AD as grad       # Import module
->>> f='e^(x^2)+y'           # Create a function
->>>  varlist=[x,y]           # Define list of variables in f
->>>  AD_obj=grad(f,varlist)  # Instatiate AD object ( if grad(f,varlist) can't parse f as a valid function raise exception )
->>>  AD_obj([1.0,2])         # Calculate the automatic differentation at x=1.0 and y=2.0 (only if len(list)=len(varlist)
+>>> import AD as grad         # Import module
+>>> f='e^(x^2)+y'             # Create a function
+>>> varlist=[x,y]             # Define list of variables in f
+>>> AD_obj=grad(f,varlist)    # Instatiate AD object ( if grad(f,varlist) can't parse f as a valid function raise exception)
+>>> AD_obj([1.0,2])           # Calculate the automatic differentation at x=1.0 and y=2.0 (only if len(list)=len(varlist))
 ```
 
 **Note: This section should be a mix of pseudo code and text.  It should not include any actual
@@ -34,6 +34,17 @@ Discuss how you plan on organizing your software package.
 * What modules do you plan on including?  What is their basic functionality?
 * Where will your test suite live?  Will you use `TravisCI`? `Coveralls`?
 * How will you distribute your package (e.g. `PyPI`)?
+ - home_directory
+  - AD 
+   - AST_builder/parser
+   - Differentiator
+   - Interface
+  - Tests
+   - AST_builder/parser test
+   - Differentiator test
+   - Interface test
+  - Documention
+  - Examples
 
 ### Implementation
 Discuss how you plan on implementing the forward mode of automatic differentiation.
