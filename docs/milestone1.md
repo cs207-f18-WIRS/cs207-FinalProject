@@ -34,15 +34,15 @@ Discuss how you plan on organizing your software package.
 * What modules do you plan on including?  What is their basic functionality?
 * Where will your test suite live?  Will you use `TravisCI`? `Coveralls`?
 * How will you distribute your package (e.g. `PyPI`)?
- - home_directory
+- home_directory
   - AD 
-   - AST_builder/parser
-   - Differentiator
-   - Interface
+    - AST_builder/parser
+    - Differentiator
+    - Interface
   - Tests
-   - AST_builder/parser test
-   - Differentiator test
-   - Interface test
+    - AST_builder/parser test
+    - Differentiator test
+  - Interface test
   - Documention
   - Examples
 
