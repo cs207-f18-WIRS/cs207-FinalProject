@@ -5,4 +5,5 @@
 
 
 Final Project Deliverable for CS207-F18-WIRS: Automatic Differentiation
+
 William Wang, Isabelle Feldhaus, Robbert Struyven, Shenghao Jiang
