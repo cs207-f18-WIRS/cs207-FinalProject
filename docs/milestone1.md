@@ -83,6 +83,7 @@ Discuss how you plan on implementing the forward mode of automatic differentiati
     - COS
     - TAN
     - LOG
+    
 Note: Things enclosed in a parentheses will be parsed as a token. 
 
 Be sure to consider a variety of use cases.  For example, don't limit your design to scalar
