@@ -19,7 +19,7 @@ they instantiate AD objects?
 The user should type the following commands in the python:
 ```python
 >>> import AD as grad         # Import module
->>> f='e^(x^2)+y'             # Create a function
+>>> f='e^(x^2)+y'             # Create a function. Can also handle vector functions: f = '2*x*y,x^2' varlist=[x,y]
 >>> varlist=[x,y]             # Define list of variables in f
 >>> AD_obj=grad(f,varlist)    # Instatiate AD object ( if grad(f,varlist) can't parse f as a valid function raise exception)
 >>> AD_obj([1.0,2])           # Calculate the automatic differentation at x=1.0 and y=2.0 (only if len(list)=len(varlist))
@@ -69,9 +69,8 @@ Discuss how you plan on implementing the forward mode of automatic differentiati
 ### High Level Overview of Formulas:
 * Abstract Syntax Tree Grammar
   - Value
-    - VARIABLES (will need a class to store value and type ie. float or vector)
+    - VARIABLES (varnames can only be alphanumeric, e and pi are protected names)
     - FLOATS
-    - VECTOR (will need a vector class to overall __add__, __mult__, etc.)
   - BinOp
     - ADD
     - MINUS
