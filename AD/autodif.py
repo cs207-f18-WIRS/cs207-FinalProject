@@ -1,3 +1,4 @@
 # General module
 class AD():
-  return 'Still to be implemented'
+  def __init__(self):
+ 
