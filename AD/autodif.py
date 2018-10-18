@@ -18,8 +18,6 @@ class AD():
     
     EXAMPLES
     =========
-    >>> linear_roots(1.0, 2.0)
-    -2.0
     """
     if a == 0:
         raise ValueError("The linear coefficient is zero.  This is not a linear equation.")
