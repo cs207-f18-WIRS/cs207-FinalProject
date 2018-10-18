@@ -3,7 +3,6 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/cs207-f18-WIRS/cs207-FinalProject/badge.svg?branch=master)](https://coveralls.io/github/cs207-f18-WIRS/cs207-FinalProject?branch=master)
 
-
 Final Project Deliverable for CS207-F18-WIRS: Automatic Differentiation
 
 William Wang, Isabelle Feldhaus, Robbert Struyven, Shenghao Jiang
