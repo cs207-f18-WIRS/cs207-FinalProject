@@ -10,4 +10,4 @@ def test_linearroots_types():
 
 def test_linearroots_zerocoeff():
     with pytest.raises(ValueError):
-autodif.linear_roots(a=0.0)
+        autodif.linear_roots(a=0.0)
