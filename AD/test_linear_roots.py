@@ -1,5 +1,5 @@
 import pytest
-import roots
+import linear_roots
 
 def test_linearoots_result():
     assert roots.linear_roots(2.0, -3.0) == 1.5
