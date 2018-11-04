@@ -366,8 +366,8 @@ class Interpreter(NodeVisitor):
         elif op == MINUS:
             return -self.visit(node.expr)
 
-    def interpret(self):
-        self.get_vardict()
+    def interpret(self, vd=None):
+        self.get_vardict(vd)
         tree = self.parser.parse()
         if tree is None:
             return ''
@@ -380,6 +380,19 @@ class Interpreter(NodeVisitor):
         if tree is None:
             return ''
         return self.visit(tree)
+    
+    def diff_all(self, vd=None):
+        self.get_vardict(vd)
+        tree = self.parser.dparse()
+        if tree is None:
+            return ''
+        variables = list(self.vardict.keys())
+        for v in variables:
+            self.vardict["d_"+v] = 0
+        for v in variables:
+            self.vardict["d_"+v] = 1
+            print("d_{} = {}".format(v, self.visit(tree)))
+            self.vardict["d_"+v] = 0
   
     def get_vardict(self, vd=None):
         """ expects vardict to be formatted as x:10, y:20, z:3 """
@@ -436,10 +449,10 @@ def main():
     lexer = Lexer(f1)
     parser = Parser(lexer)
     interpreter = Interpreter(parser)
-    result = interpreter.differentiate(vd,"y")
-    result = interpreter.differentiate(vd,"x")
-    print("Test 1")
-    assert(result==0)
+    interpreter.diff_all(vd)
+    # print(copy.deepcopy(interpreter).differentiate(vd,"y"))
+    # print(copy.deepcopy(interpreter).differentiate(vd,"x"))
+    # print(copy.deepcopy(interpreter).interpret(vd))
 
 if __name__ == '__main__':
     main()
