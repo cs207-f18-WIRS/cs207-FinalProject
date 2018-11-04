@@ -373,31 +373,37 @@ class Interpreter(NodeVisitor):
             return ''
         return self.visit(tree)
     
-    def differentiate(self):
-        self.get_vardict()
-        self.get_diffvar()
+    def differentiate(self, vd=None, dv=None):
+        self.get_vardict(vd)
+        self.get_diffvar(dv)
         tree = self.parser.dparse()
         if tree is None:
             return ''
         return self.visit(tree)
-
-    def get_vardict(self):
+  
+    def get_vardict(self, vd=None):
         """ expects vardict to be formatted as x:10, y:20, z:3 """
         vdict = {}
-        text = input('vardict> ')
-        if not text:
-            self.vardict = None
-            return
-        text = text.replace(" ", "")
+        if vd is None:
+            text = input('vardict> ')
+            if not text:
+                self.vardict = None
+                return
+            text = text.replace(" ", "")
+        else:
+            text = vd
         for var in text.split(','):
             vals = var.split(':')
             vdict[str(vals[0])] = int(vals[1])
         self.vardict = vdict
         return
     
-    def get_diffvar(self):
-        text = input('d_var> ')
-        text = text.replace(" ", "")
+    def get_diffvar(self, dv=None):
+        if dv is None:
+            text = input('d_var> ')
+            text = text.replace(" ", "")
+        else:
+            text = dv
         if text not in self.vardict.keys():
             raise NameError("d_var not in vardict")
         for v in list(self.vardict.keys()):
@@ -408,23 +414,32 @@ class Interpreter(NodeVisitor):
 
 
 def main():
-    while True:
-        try:
-            try:
-                text = raw_input('spi> ')
-            except NameError:  # Python3
-                text = input('spi> ')
-        except EOFError:
-            break
-        if not text:
-            continue
+    # while True:
+    #     try:
+    #         try:
+    #             text = raw_input('spi> ')
+    #         except NameError:  # Python3
+    #             text = input('spi> ')
+    #     except EOFError:
+    #         break
+    #     if not text:
+    #         continue
 
-        vardict = {"x":10}
-        lexer = Lexer(text)
-        parser = Parser(lexer)
-        interpreter = Interpreter(parser)
-        result = interpreter.differentiate()
-        print(result)
+    #     lexer = Lexer(text)
+    #     parser = Parser(lexer)
+    #     interpreter = Interpreter(parser)
+    #     result = interpreter.differentiate()
+    #     print(result)
+
+    f1 = "x*y"
+    vd = "x:10,y:2"
+    lexer = Lexer(f1)
+    parser = Parser(lexer)
+    interpreter = Interpreter(parser)
+    result = interpreter.differentiate(vd,"y")
+    result = interpreter.differentiate(vd,"x")
+    print("Test 1")
+    assert(result==0)
 
 if __name__ == '__main__':
     main()
