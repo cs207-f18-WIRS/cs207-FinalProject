@@ -1,4 +1,5 @@
 """ SPI - Simple Pascal Interpreter """
+import copy
 
 ###############################################################################
 #                                                                             #
@@ -149,7 +150,6 @@ class Var(AST):
     def __init__(self, token):
         self.token = token
         self.name = token.value
-        self.value = None
 
 class UnaryOp(AST):
     def __init__(self, op, expr):
@@ -239,6 +239,85 @@ class Parser(object):
             self.error()
         return node
 
+    def dfactor(self):
+        """factor : (PLUS | MINUS) factor | INTEGER | VAR | LPAREN expr RPAREN"""
+        token = self.current_token
+        if token.type == PLUS:
+            self.eat(PLUS)
+            node = UnaryOp(token, self.dfactor())
+            return node, node
+        elif token.type == MINUS:
+            self.eat(MINUS)
+            node = UnaryOp(token, self.dfactor())
+            return node, node
+        elif token.type == INTEGER:
+            self.eat(INTEGER)
+            return Num(token), Num(Token(INTEGER, 0))
+        elif token.type == VAR:
+            self.eat(VAR)
+            return Var(token), Var(Token(VAR, "d_" + token.value))
+        elif token.type == LPAREN:
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            node = self.expr()
+            dnode = cur.dexpr()
+            self.eat(RPAREN)
+            return node, dnode  
+
+    def dterm(self):
+        """term : factor ((MUL | DIV) factor)*"""
+        node, dnode = self.dfactor()
+        print(node.token)
+        print(dnode.token)
+
+        while self.current_token.type in (MUL, DIV):
+            token = self.current_token
+            if token.type == MUL:
+                self.eat(MUL)
+            elif token.type == DIV:
+                self.eat(DIV)
+            
+            rnode, rdnode = self.dfactor()
+            print(rnode, rdnode)
+            lowdhi = BinOp(left=dnode, op=Token(MUL,'*'), right=rnode)
+            hidlow = BinOp(left=node, op=Token(MUL,'*'), right=rdnode)
+            if token.type == MUL:
+                # chain rule
+                dnode = BinOp(left=lowdhi, op=Token(PLUS,'+'), right=hidlow)
+                node = BinOp(left=node, op=Token(MUL,'*'), right=rnode)
+            else:
+                # quotient rule
+                topnode = BinOp(left=lowdhi, op=Token(MINUS, '-'), right=hidlow)
+                botnode = BinOp(left=rnode, op=Token(MUL,'*'), right=rnode)
+                dnode = BinOp(left=topnode, op=Token(DIV,'/'), right=botnode)
+                node = BinOp(left=node, op=Token(DIV,'/'), right=rnode)
+        return dnode
+
+    def dexpr(self):
+        """
+        expr   : term ((PLUS | MINUS) term)*
+        term   : factor ((MUL | DIV) factor)*
+        factor : (PLUS | MINUS) factor | INTEGER | LPAREN expr RPAREN
+        """
+        dnode = self.dterm()
+
+        while self.current_token.type in (PLUS, MINUS):
+            token = self.current_token
+            if token.type == PLUS:
+                self.eat(PLUS)
+            elif token.type == MINUS:
+                self.eat(MINUS)
+
+            dnode = BinOp(left=dnode, op=token, right=self.dterm())
+        print(dnode)
+        return dnode
+
+    
+    def dparse(self):
+        node = self.dexpr()
+        if self.current_token.type != EOF:
+            self.error()
+        return node
 
 ###############################################################################
 #                                                                             #
@@ -294,6 +373,14 @@ class Interpreter(NodeVisitor):
             return ''
         return self.visit(tree)
     
+    def differentiate(self):
+        self.get_vardict()
+        self.get_diffvar()
+        tree = self.parser.dparse()
+        if tree is None:
+            return ''
+        return self.visit(tree)
+
     def get_vardict(self):
         """ expects vardict to be formatted as x:10, y:20, z:3 """
         vdict = {}
@@ -302,11 +389,20 @@ class Interpreter(NodeVisitor):
             self.vardict = None
             return
         text = text.replace(" ", "")
-        print(text)
         for var in text.split(','):
             vals = var.split(':')
             vdict[str(vals[0])] = int(vals[1])
         self.vardict = vdict
+        return
+    
+    def get_diffvar(self):
+        text = input('d_var> ')
+        text = text.replace(" ", "")
+        if text not in self.vardict.keys():
+            raise NameError("d_var not in vardict")
+        for v in list(self.vardict.keys()):
+            self.vardict["d_"+v]=0
+        self.vardict["d_"+text]=1
         return
         
 
@@ -327,9 +423,8 @@ def main():
         lexer = Lexer(text)
         parser = Parser(lexer)
         interpreter = Interpreter(parser)
-        result = interpreter.interpret()
+        result = interpreter.differentiate()
         print(result)
-
 
 if __name__ == '__main__':
     main()
