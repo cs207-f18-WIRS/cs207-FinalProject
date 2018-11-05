@@ -1,6 +1,6 @@
 """ SPI - Simple Pascal Interpreter """
 import copy
-
+import math
 ###############################################################################
 #                                                                             #
 #  LEXER                                                                      #
@@ -11,8 +11,8 @@ import copy
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, VAR = (
-    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'VAR'
+INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, VAR, COS, SIN, EXP,POW, LOG, COMMA = (
+    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'VAR', 'COS', 'SIN', 'EXP', 'POW', 'LOG', ','
 )
 
 
@@ -93,7 +93,19 @@ class Lexer(object):
                 return Token(INTEGER, self.integer())
             
             if self.current_char.isalpha():
-                return Token(VAR, self.word())
+                w = self.word()
+                if(w.upper() == "COS"):
+                    return Token(COS, self.word())
+                elif(w.upper() == "SIN"):
+                    return Token(SIN, self.word())
+                elif(w.upper() == "EXP"):
+                    return Token(EXP, self.word())
+                elif(w.upper() == "POW"):
+                    return Token(POW, self.word())
+                elif(w.upper() == "LOG"):
+                    return Token(LOG, self.word())
+                else:
+                    return Token(VAR, w)
 
             if self.current_char == '+':
                 self.advance()
@@ -118,6 +130,10 @@ class Lexer(object):
             if self.current_char == ')':
                 self.advance()
                 return Token(RPAREN, ')')
+            
+            if self.current_char == ',':
+                self.advance()
+                return Token(COMMA, ',')
 
             self.error()
 
@@ -193,6 +209,41 @@ class Parser(object):
         elif token.type == VAR:
             self.eat(VAR)
             return Var(token)
+        elif token.type == COS:
+            self.eat(COS)
+            self.eat(LPAREN)
+            x = self.expr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node
+        elif token.type == SIN:
+            self.eat(SIN)
+            self.eat(LPAREN)
+            x = self.expr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node
+        elif token.type == EXP:
+            self.eat(EXP)
+            self.eat(LPAREN)
+            x = self.expr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node
+        elif token.type == POW:
+            self.eat(POW)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(COMMA)
+            y = self.expr()
+            self.eat(RPAREN)
+            return BinOp(left = x, op = token, right = y)
+        elif token.type == LOG:
+            self.eat(LOG)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
         elif token.type == LPAREN:
             self.eat(LPAREN)
             node = self.expr()
@@ -256,6 +307,55 @@ class Parser(object):
         elif token.type == VAR:
             self.eat(VAR)
             return Var(token), Var(Token(VAR, "d_" + token.value))
+        elif token.type == COS:
+            self.eat(COS)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node,  BinOp(left = UnaryOp(Token(MINUS, "-"), UnaryOp(Token(SIN, "sin"), x)), op=Token(MUL,'*'), right=dx)
+        elif token.type == SIN:
+            self.eat(SIN)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = UnaryOp(Token(COS, "cos"), x), op=Token(MUL,'*'), right=dx)
+        elif token.type == EXP:
+            self.eat(EXP)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = node, op=Token(MUL,'*'), right=dx)
+        elif token.type == POW:
+            self.eat(POW)
+            self.eat(LPAREN)
+            x_cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = x_cur.dexpr()
+            self.eat(COMMA)
+            y_cur = copy.deepcopy(self)
+            y = self.expr()
+            dy = y_cur.dexpr()
+            self.eat(RPAREN)
+            node = BinOp(left = x, op = token, right = y)
+            return node, BinOp(left = node, op = Token(MUL, '*'), right = BinOp(left = BinOp(left = BinOp(left = y, op = Token(DIV,'/'), right = x), op = Token(MUL,'*'), right = dx), op = Token(PLUS, '+'), right = BinOp(left = dy, op = Token(MUL, '*'),right = UnaryOp(Token(LOG, 'LOG'), x))))
+        elif token.type == LOG:
+            self.eat(LOG)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = dx, op=Token(DIV,'/'), right=x)
         elif token.type == LPAREN:
             self.eat(LPAREN)
             cur = copy.deepcopy(self)
@@ -348,6 +448,8 @@ class Interpreter(NodeVisitor):
             return self.visit(node.left) * self.visit(node.right)
         elif node.op.type == DIV:
             return self.visit(node.left) / self.visit(node.right)
+        elif node.op.type == POW:
+            return math.pow(self.visit(node.left), self.visit(node.right))
 
     def visit_Num(self, node):
         return node.value
@@ -365,6 +467,14 @@ class Interpreter(NodeVisitor):
             return +self.visit(node.expr)
         elif op == MINUS:
             return -self.visit(node.expr)
+        elif op == COS:
+            return math.cos(self.visit(node.expr))
+        elif op == SIN:
+            return math.sin(self.visit(node.expr))
+        elif op == EXP:
+            return math.exp(self.visit(node.expr))
+        elif op == LOG:
+            return math.log(self.visit(node.expr))
 
     def interpret(self, vd=None):
         self.get_vardict(vd)
@@ -444,15 +554,15 @@ def main():
     #     result = interpreter.differentiate()
     #     print(result)
 
-    f1 = "x*y"
-    vd = "x:10,y:2"
+    f1 = "POW(x, POW(x, x))"
+    vd = "x:2"
     lexer = Lexer(f1)
     parser = Parser(lexer)
     interpreter = Interpreter(parser)
     interpreter.diff_all(vd)
     # print(copy.deepcopy(interpreter).differentiate(vd,"y"))
     # print(copy.deepcopy(interpreter).differentiate(vd,"x"))
-    # print(copy.deepcopy(interpreter).interpret(vd))
+   
 
 if __name__ == '__main__':
     main()
