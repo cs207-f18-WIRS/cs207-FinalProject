@@ -26,6 +26,6 @@
       d_x = 107.11041244660139
       
       ```
-  - According to Wolfram Alfa this should give:
+  - According to Wolfram Alpha this should give:
       - 32 (1 + 2 log^2(2) + log(4)) 
       - = 107.1104124466013909813974174582298585475873975011072538'
