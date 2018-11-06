@@ -1,4 +1,4 @@
 build/
 dist/
-AD*.egg-info/
+#AD*.egg-info/
 .DS_Store
