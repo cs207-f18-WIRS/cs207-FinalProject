@@ -367,8 +367,8 @@ class Parser(object):
     def dterm(self):
         """term : factor ((MUL | DIV) factor)*"""
         node, dnode = self.dfactor()
-        print(node.token)
-        print(dnode.token)
+        #print(node.token)
+        #print(dnode.token)
 
         while self.current_token.type in (MUL, DIV):
             token = self.current_token
@@ -378,7 +378,7 @@ class Parser(object):
                 self.eat(DIV)
             
             rnode, rdnode = self.dfactor()
-            print(rnode, rdnode)
+            #print(rnode, rdnode)
             lowdhi = BinOp(left=dnode, op=Token(MUL,'*'), right=rnode)
             hidlow = BinOp(left=node, op=Token(MUL,'*'), right=rdnode)
             if token.type == MUL:
@@ -409,7 +409,7 @@ class Parser(object):
                 self.eat(MINUS)
 
             dnode = BinOp(left=dnode, op=token, right=self.dterm())
-        print(dnode)
+        #print(dnode)
         return dnode
 
     
