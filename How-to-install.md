@@ -17,9 +17,12 @@
       >>> lexer = AD.interpreter.Lexer(f1);
       >>> parser =  AD.interpreter.Parser(lexer);
       >>> interpreter =  AD.interpreter.Interpreter(parser);
-      >>> print('\nCalculating dif of {}, at {}'.format(f1, vd)) 
+      >>> print('\nCalculating dif of {}, at {}'.format(f1, vd))
+      Calculating dif of POW(x, POW(x, x)), at x:2
+      
       >>> interpreter.diff_all(vd);
       d_x = 107.11041244660139
+      
       ```
   - According to Wolfram Alfa this should give:
       - 32 (1 + 2 log^2(2) + log(4)) 
