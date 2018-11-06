@@ -5,7 +5,7 @@
   - Run the Python interpreter. 
       - `python`
   - And then import the module and it will tell you the installation was succesfull. 
-      - `>>> import AD`
+      - ```python import AD```
 
 ## Demo:
   - After importing AD type: 
