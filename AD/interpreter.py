@@ -367,8 +367,6 @@ class Parser(object):
     def dterm(self):
         """term : factor ((MUL | DIV) factor)*"""
         node, dnode = self.dfactor()
-        #print(node.token)
-        #print(dnode.token)
 
         while self.current_token.type in (MUL, DIV):
             token = self.current_token
@@ -378,7 +376,6 @@ class Parser(object):
                 self.eat(DIV)
             
             rnode, rdnode = self.dfactor()
-            #print(rnode, rdnode)
             lowdhi = BinOp(left=dnode, op=Token(MUL,'*'), right=rnode)
             hidlow = BinOp(left=node, op=Token(MUL,'*'), right=rdnode)
             if token.type == MUL:
@@ -409,7 +406,6 @@ class Parser(object):
                 self.eat(MINUS)
 
             dnode = BinOp(left=dnode, op=token, right=self.dterm())
-        #print(dnode)
         return dnode
 
     
@@ -438,6 +434,8 @@ class NodeVisitor(object):
 class Interpreter(NodeVisitor):
     def __init__(self, parser):
         self.parser = parser
+        self.dtree = copy.deepcopy(parser).dparse()
+        self.tree = copy.deepcopy(parser).parse()
 
     def visit_BinOp(self, node):
         if node.op.type == PLUS:
@@ -478,7 +476,7 @@ class Interpreter(NodeVisitor):
 
     def interpret(self, vd=None):
         self.get_vardict(vd)
-        tree = self.parser.parse()
+        tree = self.tree
         if tree is None:
             return ''
         return self.visit(tree)
@@ -486,23 +484,25 @@ class Interpreter(NodeVisitor):
     def differentiate(self, vd=None, dv=None):
         self.get_vardict(vd)
         self.get_diffvar(dv)
-        tree = self.parser.dparse()
+        tree = self.dtree
         if tree is None:
             return ''
         return self.visit(tree)
     
     def diff_all(self, vd=None):
         self.get_vardict(vd)
-        tree = self.parser.dparse()
+        tree = self.dtree
         if tree is None:
             return ''
         variables = list(self.vardict.keys())
+        ret = {}
         for v in variables:
             self.vardict["d_"+v] = 0
         for v in variables:
             self.vardict["d_"+v] = 1
-            print("d_{} = {}".format(v, self.visit(tree)))
+            ret["d_{}".format(v)]=self.visit(tree)
             self.vardict["d_"+v] = 0
+        return ret
   
     def get_vardict(self, vd=None):
         """ expects vardict to be formatted as x:10, y:20, z:3 """
@@ -512,9 +512,9 @@ class Interpreter(NodeVisitor):
             if not text:
                 self.vardict = None
                 return
-            text = text.replace(" ", "")
         else:
             text = vd
+        text = text.replace(" ", "")
         for var in text.split(','):
             vals = var.split(':')
             vdict[str(vals[0])] = int(vals[1])
@@ -524,16 +524,16 @@ class Interpreter(NodeVisitor):
     def get_diffvar(self, dv=None):
         if dv is None:
             text = input('d_var> ')
-            text = text.replace(" ", "")
         else:
             text = dv
+        text = text.replace(" ", "")
         if text not in self.vardict.keys():
             raise NameError("d_var not in vardict")
         for v in list(self.vardict.keys()):
             self.vardict["d_"+v]=0
         self.vardict["d_"+text]=1
         return
-        
+    
 
 
 def main():
@@ -559,7 +559,14 @@ def main():
     lexer = Lexer(f1)
     parser = Parser(lexer)
     interpreter = Interpreter(parser)
-    interpreter.diff_all(vd)
+    print(interpreter.diff_all(vd))
+
+    f1 = "x*y*z"
+    vd = "x:2,y:3,z:4"
+    lexer = Lexer(f1)
+    parser = Parser(lexer)
+    interpreter = Interpreter(parser)
+    print(interpreter.diff_all(vd))
     # print(copy.deepcopy(interpreter).differentiate(vd,"y"))
     # print(copy.deepcopy(interpreter).differentiate(vd,"x"))
    
