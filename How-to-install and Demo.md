@@ -7,6 +7,8 @@
   - And then import the module and it will tell you the installation was succesfull. 
       ```python 
       >>> import AD
+      Installation Succes!
+      You can now use the Lexer, Parser or Interpreter by typing AD.interpreter.Lexer(..)
       ```
 
 ## Demo:
