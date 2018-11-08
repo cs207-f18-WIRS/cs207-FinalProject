@@ -66,7 +66,7 @@
       
   - The exact result of *Wolfram Alpha*:
 \begin{align} 
-\dfrac{d}{dx} \Big( f(x) \Big) & = \dfrac{d}{dx} \Big( x^x^x \Big) \\ 
+\dfrac{d}{dx} \Big( f(x) \Big) & = \dfrac{d}{dx} \Big( x^{x^x} \Big) \\ 
 & = x^{x^x +x-1} (x \log^2(x)+x \log(x) + 1) 
 \end{align}
   - Evaluated at $x=2$ gives the following result:
