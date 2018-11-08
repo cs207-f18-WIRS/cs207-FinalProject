@@ -54,7 +54,7 @@
       1
       ```
       
-- The following example results in a floating point derivative:
+  - The following example results in a floating point derivative:
       ```python     
       >>> f="POW(x, POW(x, x))";
       >>> F1.new_formula(f)
@@ -64,8 +64,8 @@
       {'d_x': 107.11041244660139}
       ```
       
-- The exact result of *Wolfram Alpha*:
+  - The exact result of *Wolfram Alpha*:
       - 32 (1 + 2 log^2(2) + log(4)) 
       - = 107.1104124466013909813974174582298585475873975011072538'   
-- We obtain machine precision.
+  - We obtain machine precision.
      
