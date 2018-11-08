@@ -54,7 +54,7 @@
       1
       ```
       
-  - The following example results in a floating point derivative:
+  - The following example results in a floating point derivative: \begin{align} R=4 \end{align}
       ```python     
       >>> f="POW(x, POW(x, x))";
       >>> F1.new_formula(f)
@@ -64,7 +64,7 @@
       {'d_x': 107.11041244660139}
       ```
       
-  - The exact result of *Wolfram Alpha*:
+  - The exact result of *Wolfram Alpha*: 
 \begin{align} 
 \dfrac{d}{dx} \Big( f(x) \Big) & = \dfrac{d}{dx} \Big( x^{x^x} \Big) \\ 
 & = x^{x^x +x-1} (x \log^2(x)+x \log(x) + 1) 
