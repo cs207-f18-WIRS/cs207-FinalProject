@@ -55,7 +55,7 @@
       ```
       
 - The following example results in a floating point derivative:
-      ```python      
+      ```python     
       >>> f="POW(x, POW(x, x))";
       >>> F1.new_formula(f)
       >>> vd = "x:2"
