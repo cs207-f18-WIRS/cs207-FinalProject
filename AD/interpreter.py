@@ -1,6 +1,7 @@
 """ SPI - Simple Pascal Interpreter """
 import copy
 import math
+import unicodedata
 ###############################################################################
 #                                                                             #
 #  LEXER                                                                      #
@@ -61,13 +62,34 @@ class Lexer(object):
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
+    def is_number(self, s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            pass
+    
+        try:
+            unicodedata.numeric(s)
+            return True
+        except (TypeError, ValueError):
+            pass
+        
+        return False
+
     def integer(self):
         """Return a (multidigit) integer consumed from the input."""
-        result = ''
-        while self.current_char is not None and self.current_char.isdigit():
-            result += self.current_char
-            self.advance()
-        return int(result)
+        
+        while(float())
+        index = 0
+        while(self.is_number(self.text[self.pos:len(self.text)-index])==False):
+            index += 1
+        number = self.text[self.pos:len(self.text)-index]
+        index = 0
+        while(index < len(number)):
+          self.advance()
+          index += 1
+        return float(number)
     
     def word(self):
         """Return a multichar integer consumed from the input."""
@@ -561,8 +583,8 @@ def main():
     interpreter = Interpreter(parser)
     print(interpreter.diff_all(vd))
 
-    f1 = "x*y*z"
-    vd = "x:2,y:3,z:4"
+    f1 = "x*1.3e-5+y*12.5"
+    vd = "x:2,y:3"
     lexer = Lexer(f1)
     parser = Parser(lexer)
     interpreter = Interpreter(parser)
