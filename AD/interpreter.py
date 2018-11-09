@@ -378,6 +378,9 @@ class Parser(object):
             dnode = cur.dexpr()
             self.eat(RPAREN)
             return node, dnode
+        else:
+            raise NameError('Invalid character')
+
 
     def dterm(self):
         """term : factor ((MUL | DIV) factor)*"""
