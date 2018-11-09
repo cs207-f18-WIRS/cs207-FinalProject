@@ -1,3 +1,6 @@
 build/
 dist/
 AD*.egg-info/
+*.DS_Store*
+*_pycache_*
+*ipynb_checkpoints*
