@@ -6,8 +6,7 @@
       - `python`
   - And then import the module and it will tell you the installation was succesfull. 
       ```python 
-      >>> import autodif
-      Import Successful!
+      >>> import AD.autodif as autodif
       ```
 
 ## How-to-use:
