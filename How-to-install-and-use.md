@@ -6,9 +6,8 @@
       - `python`
   - And then import the module and it will tell you the installation was succesfull. 
       ```python 
-      >>> import AD
-      Installation Succes!
-      Read the 'How-to-install and How-to-use.md' document for directions on how to use the package.
+      >>> import autodif
+      Import Successful!
       ```
 
 ## How-to-use:
