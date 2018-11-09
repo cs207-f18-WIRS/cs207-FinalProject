@@ -1,4 +1,4 @@
-import AD.interpreter as ast
+import interpreter as ast
 
 class AD():
     """
