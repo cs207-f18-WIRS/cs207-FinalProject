@@ -77,8 +77,12 @@ def test_smallVd():
 def test_f7():
     f1 = "2*"
     vd = "x:2.0"
-    F1 = autodif.AD(f1)
-    F1.set_point(vd)
+    with pytest.raises(NameError) as e:
+        F1 = autodif.AD(f1)
+    assert(e=="Invalid character")
+    with pytest.raises(NameError) as e:
+        F1.set_point(vd)
+    assert(e=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.val(vd)
     assert(e=="Invalid character")
@@ -89,8 +93,12 @@ def test_f7():
 def test_f8():
     f1 = "x#y"
     vd = "x:1.0"
-    F1 = autodif.AD(f1)
-    F1.set_point(vd)
+    with pytest.raises(NameError) as e:
+        F1 = autodif.AD(f1)
+    assert(e=="Invalid character")
+    with pytest.raises(NameError) as e:
+        F1.set_point(vd)
+    assert(e=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.val(vd)
     assert(e=="Invalid character")
@@ -125,8 +133,12 @@ def test_f11():
 def test_f12():
     f1 = "x+3)))"
     vd = "x:1.0"
-    F1 = autodif.AD(f1)
-    F1.set_point(vd)
+    with pytest.raises(NameError) as e:
+        F1 = autodif.AD(f1)
+    assert(e=="Invalid character")
+    with pytest.raises(NameError) as e:
+        F1.set_point(vd)
+    assert(e=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.val(vd)
     assert(e=="Invalid character")
