@@ -68,18 +68,12 @@ class Lexer(object):
             return True
         except ValueError:
             pass
-    
-        try:
-            unicodedata.numeric(s)
-            return True
-        except (TypeError, ValueError):
-            pass
-        
+
         return False
 
     def integer(self):
         """Return a (multidigit) integer consumed from the input."""
-        
+
         index = 0
         while(self.is_number(self.text[self.pos:len(self.text)-index])==False):
             index += 1
@@ -89,7 +83,7 @@ class Lexer(object):
           self.advance()
           index += 1
         return float(number)
-    
+
     def word(self):
         """Return a multichar integer consumed from the input."""
         result = ''
@@ -112,7 +106,7 @@ class Lexer(object):
 
             if self.current_char.isdigit():
                 return Token(INTEGER, self.integer())
-            
+
             if self.current_char.isalpha():
                 w = self.word()
                 if(w.upper() == "COS"):
@@ -151,7 +145,7 @@ class Lexer(object):
             if self.current_char == ')':
                 self.advance()
                 return Token(RPAREN, ')')
-            
+
             if self.current_char == ',':
                 self.advance()
                 return Token(COMMA, ',')
@@ -383,7 +377,7 @@ class Parser(object):
             node = self.expr()
             dnode = cur.dexpr()
             self.eat(RPAREN)
-            return node, dnode  
+            return node, dnode
 
     def dterm(self):
         """term : factor ((MUL | DIV) factor)*"""
@@ -395,7 +389,7 @@ class Parser(object):
                 self.eat(MUL)
             elif token.type == DIV:
                 self.eat(DIV)
-            
+
             rnode, rdnode = self.dfactor()
             lowdhi = BinOp(left=dnode, op=Token(MUL,'*'), right=rnode)
             hidlow = BinOp(left=node, op=Token(MUL,'*'), right=rdnode)
@@ -429,7 +423,7 @@ class Parser(object):
             dnode = BinOp(left=dnode, op=token, right=self.dterm())
         return dnode
 
-    
+
     def dparse(self):
         node = self.dexpr()
         if self.current_token.type != EOF:
@@ -501,7 +495,7 @@ class Interpreter(NodeVisitor):
         if tree is None:
             return ''
         return self.visit(tree)
-    
+
     def differentiate(self, vd=None, dv=None):
         self.get_vardict(vd)
         self.get_diffvar(dv)
@@ -509,7 +503,7 @@ class Interpreter(NodeVisitor):
         if tree is None:
             return ''
         return self.visit(tree)
-    
+
     def diff_all(self, vd=None):
         self.get_vardict(vd)
         tree = self.dtree
@@ -524,7 +518,7 @@ class Interpreter(NodeVisitor):
             ret["d_{}".format(v)]=self.visit(tree)
             self.vardict["d_"+v] = 0
         return ret
-  
+
     def get_vardict(self, vd=None):
         """ expects vardict to be formatted as x:10, y:20, z:3 """
         vdict = {}
@@ -541,7 +535,7 @@ class Interpreter(NodeVisitor):
             vdict[str(vals[0])] = float(vals[1])
         self.vardict = vdict
         return
-    
+
     def get_diffvar(self, dv=None):
         if dv is None:
             text = input('d_var> ')
@@ -554,7 +548,7 @@ class Interpreter(NodeVisitor):
             self.vardict["d_"+v]=0
         self.vardict["d_"+text]=1
         return
-    
+
 
 
 # def main():
@@ -578,7 +572,7 @@ class Interpreter(NodeVisitor):
 
 # if __name__ == '__main__':
 #     main()
-    
+
 '''
 Based off of the open source tutorial: Let's Build a Simple Interpreter
 https://github.com/rspivak/lsbasi/tree/master/part8/python
