@@ -61,7 +61,7 @@ def test_noVd():
         F1.diff_all()
     assert(str(e.value) == 'Must set point to evaluate')
     ret = F1.diff_all(vd)
-    for k, v in ret:
+    for k, v in ret.items():
         assert(v == 1)
 
 def test_smallVd():
