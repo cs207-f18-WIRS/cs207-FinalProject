@@ -1,4 +1,5 @@
 import pytest
+import math
 from AD import autodif as autodif
 
 def test_f1():
