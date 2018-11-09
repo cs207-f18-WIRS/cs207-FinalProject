@@ -15,7 +15,8 @@ def test_f2():
     vd ="X:1.0,Y:2.0"
     F1 = autodif.AD(f1)
     F1.set_point(vd)
-    assert math.fabs(F1.val() - 1096.6331584284585992) < 1e-7
+    
+    math.fabs(F1.val() - 1096.6331584284585992) < 1e-7
     assert math.fabs(F1.diff("X") - 7676.432108999210194) < 1e-7
     assert math.fabs(F1.diff("Y") - 4386.532633713834397) < 1e-7
 
@@ -79,32 +80,32 @@ def test_f7():
     vd = "x:2.0"
     with pytest.raises(NameError) as e:
         F1 = autodif.AD(f1)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.set_point(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.val(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:    
         F1.diff_all(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
 
 def test_f8():
     f1 = "x#y"
     vd = "x:1.0"
     with pytest.raises(NameError) as e:
         F1 = autodif.AD(f1)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.set_point(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.val(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:    
         F1.diff_all(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
 
 def test_f9():
     f1 = "+3+x"
@@ -135,13 +136,13 @@ def test_f12():
     vd = "x:1.0"
     with pytest.raises(NameError) as e:
         F1 = autodif.AD(f1)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.set_point(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:
         F1.val(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
     with pytest.raises(NameError) as e:    
         F1.diff_all(vd)
-    assert(e=="Invalid character")
+    assert(str(e.value)=="Invalid character")
