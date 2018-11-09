@@ -557,7 +557,7 @@ class Interpreter(NodeVisitor):
     
 
 
-def main():
+# def main():
     # if run as main, can take inputs from command line
     # while True:
     #     try:
@@ -576,8 +576,8 @@ def main():
     #     result = interpreter.differentiate()
     #     print(result)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
     
 '''
 Based off of the open source tutorial: Let's Build a Simple Interpreter
