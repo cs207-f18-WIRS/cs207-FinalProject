@@ -81,30 +81,12 @@ def test_f7():
     with pytest.raises(NameError) as e:
         F1 = autodif.AD(f1)
     assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:
-        F1.set_point(vd)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:
-        F1.val(vd)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:    
-        F1.diff_all(vd)
-    assert(str(e.value)=="Invalid character")
 
 def test_f8():
     f1 = "x#y"
     vd = "x:1.0"
     with pytest.raises(NameError) as e:
         F1 = autodif.AD(f1)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:
-        F1.set_point(vd)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:
-        F1.val(vd)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:    
-        F1.diff_all(vd)
     assert(str(e.value)=="Invalid character")
 
 def test_f9():
@@ -136,13 +118,4 @@ def test_f12():
     vd = "x:1.0"
     with pytest.raises(NameError) as e:
         F1 = autodif.AD(f1)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:
-        F1.set_point(vd)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:
-        F1.val(vd)
-    assert(str(e.value)=="Invalid character")
-    with pytest.raises(NameError) as e:    
-        F1.diff_all(vd)
     assert(str(e.value)=="Invalid character")
