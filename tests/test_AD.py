@@ -57,7 +57,7 @@ def test_noVd():
     vd = "x:1,y:1"
     
     F1 = autodif.AD(f1)
-    with raises(NameError) as e
+    with raises(NameError) as e:
         F1.diff_all()
     assert(str(e.value) == 'Must set point to evaluate')
     ret = F1.diff_all(vd)
