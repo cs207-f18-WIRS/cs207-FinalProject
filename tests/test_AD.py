@@ -57,14 +57,12 @@ def test_noVd():
     vd = "x:1,y:1"
     
     F1 = autodif.AD(f1)
-    try:
+    with raises(NameError) as e
         F1.diff_all()
-    except NameError:
-        ret = F1.diff_all(vd)
-        for k, v in ret:
-            assert(v == 1)
-        return
-    assert(False)
+    assert(str(e.value) == 'Must set point to evaluate')
+    ret = F1.diff_all(vd)
+    for k, v in ret:
+        assert(v == 1)
 
 def test_smallVd():
     F1 = autodif.AD("x")
