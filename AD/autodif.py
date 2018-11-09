@@ -49,4 +49,4 @@ class AD():
         self.lexer = ast.Lexer(frmla)
         self.parser = ast.Parser(self.lexer)
         self.interpreter = ast.Interpreter(self.parser)
-self.vd = None
+        self.vd = None
