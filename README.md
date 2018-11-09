@@ -6,6 +6,11 @@
 
 This repository contains the Final Project Deliverable on Automatic Differentiation for the Harvard Course CS 207: Systems Development for Computational Science.
 
+## Documentation can be found at ```docs```:
+  - ```How-to-install-and-use.md:``` Explanation on how to install and use the package.
+  - ```milestone2.ipynb:``` Automatic Differentiation (AD) package documentation.
+  - ```How-to-package.md:``` Explanation how the project was packaged.
+
 ## Project information:
   - Specific information can be found at `docs/milestone1.md`.
   - [Course Project discription](https://iacs-cs-207.github.io/cs207-F18/project.html) : Overview of the instruction on the project on automatic differentiation (AD).
