@@ -264,6 +264,8 @@ class Parser(object):
             node = self.expr()
             self.eat(RPAREN)
             return node
+        else:
+            raise NameError('Invalid character')
 
     def term(self):
         """term : factor ((MUL | DIV) factor)*"""
@@ -392,9 +394,6 @@ class Parser(object):
                 self.eat(MUL)
             elif token.type == DIV:
                 self.eat(DIV)
-                
-            if self is None:
-                raise Exception('Invalid character')
                 
             rnode, rdnode = self.dfactor()
             lowdhi = BinOp(left=dnode, op=Token(MUL,'*'), right=rnode)
