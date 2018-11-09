@@ -1,2 +1,2 @@
-from AD.autodif as autodif
+from AD import autodif as autodif
 print("Import Succesful!")

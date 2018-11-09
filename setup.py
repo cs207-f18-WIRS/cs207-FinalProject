@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     
 setuptools.setup(
     name='AD_testing_packaging_CS207',
-    version='0.0.0',
+    version='0.1.0',
     author='Shenghao Jiang, Isabelle Feldhaus, Robbert Struyven, William Wang',
     author_email=" ",
     description='Automatic Differentiation Package',
