@@ -64,7 +64,9 @@
       
   - The exact result of *Wolfram Alpha*: 
   
-![img alt <>](http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%29%5CBig%29%26%3D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28x%5E%7Bx%5Ex%7D%5CBig%29%5Cnonumber%5C%5C%26%3Dx%5E%7Bx%5Ex%2Bx-1%7D%28x%5Clog%5E2%28x%29%2Bx%5Clog%28x%29%2B1%29%5Cnonumber%5Cend%7Balign%7D)
+<p align="center">
+  <img src="http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%29%5CBig%29%26%3D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28x%5E%7Bx%5Ex%7D%5CBig%29%5Cnonumber%5C%5C%26%3Dx%5E%7Bx%5Ex%2Bx-1%7D%28x%5Clog%5E2%28x%29%2Bx%5Clog%28x%29%2B1%29%5Cnonumber%5Cend%7Balign%7D">
+</p>
 
   - Evaluated at $x=2$ gives the following result:
   
