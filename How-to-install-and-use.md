@@ -65,10 +65,8 @@
       ```
       
   - The exact result of *Wolfram Alpha*: 
-$$
-\dfrac{d}{dx} \Big( f(x) \Big)  = \dfrac{d}{dx} \Big( x^{x^x} \Big) \\ 
- = x^{x^x +x-1} (x \log^2(x)+x \log(x) + 1) 
-\end{align} $$
+$$\dfrac{d}{dx} \Big( f(x) \Big)  = \dfrac{d}{dx} \Big( x^{x^x} \Big) \\ 
+ = x^{x^x +x-1} (x \log^2(x)+x \log(x) + 1) $$
   - Evaluated at $x=2$ gives the following result:
 $$ 32 (1 + 2 \log^2(2) + \log(4)) = \underline{107.11041244660139}09813974174582298585475873975011072538 $$
   - We obtain machine precision.
