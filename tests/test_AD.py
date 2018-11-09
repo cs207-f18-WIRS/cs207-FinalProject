@@ -69,40 +69,34 @@ def test_smallVd():
     f2 = "x*y"
     vd = "x:3"
     F1.new_formula(f2)
-    try:
+    with pytest.raises(NameError) as e:
         F1.val(vd)
-    except NameError:
-        assert(F1.val("x:3,y:2")==6)
-        return
-    assert(False)
+    assert(F1.val("x:3,y:2")==6)
+    return
 
 def test_f7():
     f1 = "2*"
     vd = "x:2.0"
     F1 = autodif.AD(f1)
     F1.set_point(vd)
-    try:
+    with pytest.raises(NameError) as e:
         F1.val(vd)
-    except NameError:
-        pass
-    try:
+    assert(e=="Invalid character")
+    with pytest.raises(NameError) as e:    
         F1.diff_all(vd)
-    except NameError:
-        return
+    assert(e=="Invalid character")
 
 def test_f8():
     f1 = "x#y"
     vd = "x:1.0"
     F1 = autodif.AD(f1)
     F1.set_point(vd)
-    try:
+    with pytest.raises(NameError) as e:
         F1.val(vd)
-    except NameError:
-        pass
-    try:
+    assert(e=="Invalid character")
+    with pytest.raises(NameError) as e:    
         F1.diff_all(vd)
-    except NameError:
-        return
+    assert(e=="Invalid character")
 
 def test_f9():
     f1 = "+3+x"
@@ -133,11 +127,9 @@ def test_f12():
     vd = "x:1.0"
     F1 = autodif.AD(f1)
     F1.set_point(vd)
-    try:
+    with pytest.raises(NameError) as e:
         F1.val(vd)
-    except NameError:
-        pass
-    try:
+    assert(e=="Invalid character")
+    with pytest.raises(NameError) as e:    
         F1.diff_all(vd)
-    except NameError:
-        return
+    assert(e=="Invalid character")
