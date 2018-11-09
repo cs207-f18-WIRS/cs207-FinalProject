@@ -1,4 +1,4 @@
-## How to install our package 
+## How-to-install
   - Our package can be found at https://pypi.org/project/AD-testing-packaging-CS207/:
   - Pip install your package from PyPI:
       - `pip install AD-testing-packaging-CS207`
