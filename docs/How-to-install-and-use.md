@@ -6,8 +6,7 @@
       - `python`
   - And then import the module and it will tell you the installation was succesfull. 
       ```python 
-      >>> import autodif
-      Import Successful!
+      >>> import AD.autodif as autodif
       ```
 
 ## How-to-use:
@@ -64,15 +63,16 @@
       ```
       
   - The exact result of *Wolfram Alpha*: 
+  
+<p align="center">
+  <img src="http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%29%5CBig%29%26%3D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28x%5E%7Bx%5Ex%7D%5CBig%29%5Cnonumber%5C%5C%26%3Dx%5E%7Bx%5Ex%2Bx-1%7D%28x%5Clog%5E2%28x%29%2Bx%5Clog%28x%29%2B1%29%5Cnonumber%5Cend%7Balign%7D">
+</p>
 
-``` 
-$$\dfrac{d}{dx} \Big( f(x) \Big)  = \dfrac{d}{dx} \Big( x^{x^x} \Big) \\ 
-= x^{x^x +x-1} (x \log^2(x)+x \log(x) + 1) $$
-```
   - Evaluated at $x=2$ gives the following result:
+  
+<p align="center">
+  <img src="http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%3D2%29%5CBig%29%26%3D2%5E%7B2%5E2%2B2-1%7D%5Cbig%282%5Clog%5E2%282%29%2B2%5Clog%282%29%2B1%5Cbig%29%5Cnonumber%5C%5C%26%3D32%5Cbig%282%5Clog_2%282%29%2B2%5Clog%282%29%2B1%5Cbig%29%5Cnonumber%5C%5C%26%3D%5Cunderline%7B107.11041244660139%7D098139741...%5Cnonumber%5Cend%7Balign%7D">
+</p>
 
-``` 
-$$32 (1 + 2 \log^2(2) + \log(4)) = \underline{107.11041244660139}09813974174582298585475873975011072538 $$
-```
   - We obtain machine precision.
-     
+    

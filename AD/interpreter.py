@@ -538,7 +538,7 @@ class Interpreter(NodeVisitor):
         text = text.replace(" ", "")
         for var in text.split(','):
             vals = var.split(':')
-            vdict[str(vals[0])] = int(vals[1])
+            vdict[str(vals[0])] = float(vals[1])
         self.vardict = vdict
         return
     
@@ -558,6 +558,7 @@ class Interpreter(NodeVisitor):
 
 
 def main():
+    # if run as main, can take inputs from command line
     # while True:
     #     try:
     #         try:
@@ -574,23 +575,6 @@ def main():
     #     interpreter = Interpreter(parser)
     #     result = interpreter.differentiate()
     #     print(result)
-
-    f1 = "POW(x, POW(x, x))"
-    vd = "x:2"
-    lexer = Lexer(f1)
-    parser = Parser(lexer)
-    interpreter = Interpreter(parser)
-    print(interpreter.diff_all(vd))
-
-    f1 = "x*1.3e-5+y*12.5"
-    vd = "x:2,y:3"
-    lexer = Lexer(f1)
-    parser = Parser(lexer)
-    interpreter = Interpreter(parser)
-    print(interpreter.diff_all(vd))
-    # print(copy.deepcopy(interpreter).differentiate(vd,"y"))
-    # print(copy.deepcopy(interpreter).differentiate(vd,"x"))
-   
 
 if __name__ == '__main__':
     main()
