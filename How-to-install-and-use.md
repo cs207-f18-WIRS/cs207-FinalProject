@@ -1,3 +1,5 @@
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
 ## How to install our package 
   - Our package can be found at https://pypi.org/project/AD-testing-packaging-CS207/:
   - Pip install your package from PyPI:
