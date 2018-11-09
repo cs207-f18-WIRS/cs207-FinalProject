@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
 ## How to install our package 
   - Our package can be found at https://pypi.org/project/AD-testing-packaging-CS207/:
   - Pip install your package from PyPI:
@@ -65,11 +63,10 @@
       ```
       
   - The exact result of *Wolfram Alpha*: 
+![img](http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%0D%0A%5Cdfrac%7Bd%7D%7Bdx%7D+%5CBig%28+f%28x%29+%5CBig%29+%26+%3D+%5Cdfrac%7Bd%7D%7Bdx%7D+%5CBig%28+x%5E%7Bx%5Ex%7D+%5CBig%29+%5C%5C+%0D%0A%26+%3D+x%5E%7Bx%5Ex+%2Bx-1%7D+%28x+%5Clog%5E2%28x%29%2Bx+%5Clog%28x%29+%2B+1%29+%0D%0A%5Cend%7Balign%7D)
 
-$$\dfrac{d}{dx} \Big( f(x) \Big)  = \dfrac{d}{dx} \Big( x^{x^x} \Big) \\ 
-= x^{x^x +x-1} (x \log^2(x)+x \log(x) + 1) $$
   - Evaluated at $x=2$ gives the following result:
+![img](http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%0D%0A%5Cdfrac%7Bd%7D%7Bdx%7D+%5CBig%28+f%28x%3D2%29+%5CBig%29%26%3D+2%5E%7B2%5E2%2B2-1%7D+%5Cbig%28+2+%5Clog%5E2%282%29+%2B+2%5Clog%282%29+%2B+1%5Cbig%29%5C%5C+%26%3D+32+%5Cbig%28+2+%5Clog_2%282%29+%2B+2%5Clog%282%29%2B+1%5Cbig%29+%5C%5C%0D%0A%26+%3D+%5Cunderline%7B107.11041244660139%7D098139741...+%5Cend%7Balign%7D)
 
-$$32 (1 + 2 \log^2(2) + \log(4)) = \underline{107.11041244660139}09813974174582298585475873975011072538 $$
   - We obtain machine precision.
-     
+    
