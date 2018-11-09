@@ -54,7 +54,7 @@
       1
       ```
       
-  - The following example results in a floating point derivative: \begin{align} R=4 \end{align}
+  - The following example results in a floating point derivative: $$\begin{align} R=4 \end{align}$$
       ```python     
       >>> f="POW(x, POW(x, x))";
       >>> F1.new_formula(f)
@@ -65,13 +65,16 @@
       ```
       
   - The exact result of *Wolfram Alpha*: 
+$$
 \begin{align} 
 \dfrac{d}{dx} \Big( f(x) \Big) & = \dfrac{d}{dx} \Big( x^{x^x} \Big) \\ 
 & = x^{x^x +x-1} (x \log^2(x)+x \log(x) + 1) 
-\end{align}
+\end{align}$$
   - Evaluated at $x=2$ gives the following result:
+$$
 \begin{align} & = 32 (1 + 2 \log^2(2) + \log(4)) \\
 & = \underline{107.11041244660139}09813974174582298585475873975011072538 
-\end{align}
+\end{align} 
+$$
   - We obtain machine precision.
      
