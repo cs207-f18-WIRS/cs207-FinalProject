@@ -59,7 +59,7 @@ def test_noVd():
     F1 = autodif.AD(f1)
     try:
         F1.diff_all()
-    except:
+    except NameError:
         ret = F1.diff_all(vd)
         for k, v in ret:
             assert(v == 1)
@@ -67,13 +67,13 @@ def test_noVd():
     assert(False)
 
 def test_smallVd():
-    F1 = autodif.Ad("x")
+    F1 = autodif.AD("x")
     f2 = "x*y"
     vd = "x:3"
     F1.new_formula(f2)
     try:
         F1.val(vd)
-    except:
+    except NameError:
         assert(F1.val("x:3,y:2")==6)
         return
     assert(False)
