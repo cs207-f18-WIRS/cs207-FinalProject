@@ -80,7 +80,6 @@ class Lexer(object):
     def integer(self):
         """Return a (multidigit) integer consumed from the input."""
         
-        while(float())
         index = 0
         while(self.is_number(self.text[self.pos:len(self.text)-index])==False):
             index += 1
