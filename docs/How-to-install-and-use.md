@@ -64,11 +64,11 @@
       
   - The exact result of *Wolfram Alpha*: 
   
-![img](http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%29%5CBig%29%26%3D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28x%5E%7Bx%5Ex%7D%5CBig%29%5Cnonumber%5C%5C%26%3Dx%5E%7Bx%5Ex%2Bx-1%7D%28x%5Clog%5E2%28x%29%2Bx%5Clog%28x%29%2B1%29%5Cnonumber%5C%5C%5Cend%7Balign%7D)
+![img](http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%29%5CBig%29%26%3D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28x%5E%7Bx%5Ex%7D%5CBig%29%5Cnonumber%5C%5C%26%3Dx%5E%7Bx%5Ex%2Bx-1%7D%28x%5Clog%5E2%28x%29%2Bx%5Clog%28x%29%2B1%29%5Cnonumber%5Cend%7Balign%7D)
 
   - Evaluated at $x=2$ gives the following result:
   
-![img](http://latex.codecogs.com/svg.latex?%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%3D2%29%5CBig%29%26%3D2%5E%7B2%5E2%2B2-1%7D%5Cbig%282%5Clog%5E2%282%29%2B2%5Clog%282%29%2B1%5Cbig%29%5Cnonumber%5C%5C%26%3D32%5Cbig%282%5Clog_2%282%29%2B2%5Clog%282%29%2B1%5Cbig%29%5Cnonumber%5C%5C%26%3D%5Cunderline%7B107.11041244660139%7D098139741...%5Cnonumber%5C%5C%5Cend%7Balign%7D)
+![img](http://latex.codecogs.com/svg.latex?%%5Cbegin%7Balign%7D%5Cdfrac%7Bd%7D%7Bdx%7D%5CBig%28f%28x%3D2%29%5CBig%29%26%3D2%5E%7B2%5E2%2B2-1%7D%5Cbig%282%5Clog%5E2%282%29%2B2%5Clog%282%29%2B1%5Cbig%29%5Cnonumber%5C%5C%26%3D32%5Cbig%282%5Clog_2%282%29%2B2%5Clog%282%29%2B1%5Cbig%29%5Cnonumber%5C%5C%26%3D%5Cunderline%7B107.11041244660139%7D098139741...%5Cnonumber%5Cend%7Balign%7D)
 
   - We obtain machine precision.
     
