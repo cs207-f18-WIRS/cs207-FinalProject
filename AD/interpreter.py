@@ -389,7 +389,10 @@ class Parser(object):
                 self.eat(MUL)
             elif token.type == DIV:
                 self.eat(DIV)
-
+                
+            if self is None:
+                raise Exception('Invalid character')
+                
             rnode, rdnode = self.dfactor()
             lowdhi = BinOp(left=dnode, op=Token(MUL,'*'), right=rnode)
             hidlow = BinOp(left=node, op=Token(MUL,'*'), right=rdnode)
