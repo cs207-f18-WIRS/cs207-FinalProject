@@ -1,5 +1,4 @@
 build/
 dist/
 AD*.egg-info/
-*.DS_Store
-*__pycache_*
+
