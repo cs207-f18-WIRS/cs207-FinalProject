@@ -227,7 +227,7 @@ class Parser(object):
         elif token.type == COS:
             self.eat(COS)
             self.eat(LPAREN)
-            x = self.expr()
+            x = self.factor()
             node = UnaryOp(token, x)
             self.eat(RPAREN)
             return node
@@ -312,12 +312,16 @@ class Parser(object):
         token = self.current_token
         if token.type == PLUS:
             self.eat(PLUS)
-            node = UnaryOp(token, self.dfactor())
-            return node, node
+            x, dx = self.dfactor()
+            node = UnaryOp(token, x)
+            dnode = UnaryOp(token, dx)
+            return node, dnode
         elif token.type == MINUS:
             self.eat(MINUS)
-            node = UnaryOp(token, self.dfactor())
-            return node, node
+            x, dx = self.dfactor()
+            node = UnaryOp(token, x)
+            dnode = UnaryOp(token, dx)
+            return node, dnode
         elif token.type == INTEGER:
             self.eat(INTEGER)
             return Num(token), Num(Token(INTEGER, 0))
@@ -434,7 +438,7 @@ class Parser(object):
         if self.current_token.type != EOF:
             self.error()
         return node
-
+    
 ###############################################################################
 #                                                                             #
 #  INTERPRETER                                                                #
