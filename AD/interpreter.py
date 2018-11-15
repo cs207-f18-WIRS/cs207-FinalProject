@@ -227,7 +227,7 @@ class Parser(object):
         elif token.type == COS:
             self.eat(COS)
             self.eat(LPAREN)
-            x = self.factor()
+            x = self.expr()
             node = UnaryOp(token, x)
             self.eat(RPAREN)
             return node
