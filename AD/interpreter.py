@@ -113,7 +113,7 @@ class Lexer(object):
         while self.current_char is not None and self.current_char.isalpha():
             result += self.current_char
             self.advance()
-        return result.upper()
+        return result
 
     def get_next_token(self):
         """Lexical analyzer (also known as scanner or tokenizer)
@@ -131,7 +131,8 @@ class Lexer(object):
                 return Token(INTEGER, self.integer())
 
             if self.current_char.isalpha():
-                w = self.word()
+                wo = self.word()
+                w = wo.upper()
                 if(w == "E"):
                     return Token(INTEGER, math.e)
                 elif(w == "PI"):
@@ -147,7 +148,7 @@ class Lexer(object):
                 elif(w == "LOG"):
                     return Token(LOG, self.word())
                 else:
-                    return Token(VAR, w)
+                    return Token(VAR, wo)
 
             if self.current_char == '+':
                 self.advance()
