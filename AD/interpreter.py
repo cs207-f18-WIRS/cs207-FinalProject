@@ -16,6 +16,13 @@ INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, VAR, COS, SIN, EXP,POW, LOG
     'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'VAR', 'COS', 'SIN', 'EXP', 'POW', 'LOG', ','
 )
 
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except:
+        pass
+    return False
 
 class Token(object):
     def __init__(self, type, value):
@@ -62,27 +69,43 @@ class Lexer(object):
         while self.current_char is not None and self.current_char.isspace():
             self.advance()
 
-    def is_number(self, s):
-        try:
-            float(s)
-            return True
-        except ValueError:
-            pass
-
-        return False
-
     def integer(self):
         """Return a (multidigit) integer consumed from the input."""
-
-        index = 0
-        while(self.is_number(self.text[self.pos:len(self.text)-index])==False):
-            index += 1
-        number = self.text[self.pos:len(self.text)-index]
-        index = 0
-        while(index < len(number)):
-          self.advance()
-          index += 1
-        return float(number)
+        index = 1
+        cur = self.text[self.pos:self.pos+index]
+        while(True):
+            rem = len(self.text) - self.pos - index
+            if rem > 2:
+                a = cur + self.text[self.pos+index:self.pos+index+1]
+                b = cur + self.text[self.pos+index:self.pos+index+2]
+                c = cur + self.text[self.pos+index:self.pos+index+3]
+            elif rem > 1:
+                a = cur + self.text[self.pos+index:self.pos+index+1]
+                b = cur + self.text[self.pos+index:self.pos+index+2]
+                c = None
+            elif rem > 0:
+                a = cur + self.text[self.pos+index:self.pos+index+1]
+                b = None
+                c = None
+            else:
+                while index > 0:
+                    self.advance()
+                    index -= 1
+                return float(cur)
+            if is_number(c):
+                cur = c
+                index += 3
+            elif is_number(b):
+                cur = b
+                index += 2
+            elif is_number(a):
+                cur = a
+                index += 1
+            else:
+                while index > 0:
+                    self.advance()
+                    index -= 1
+                return float(cur)
 
     def word(self):
         """Return a multichar integer consumed from the input."""
@@ -90,7 +113,7 @@ class Lexer(object):
         while self.current_char is not None and self.current_char.isalpha():
             result += self.current_char
             self.advance()
-        return  result
+        return result.upper()
 
     def get_next_token(self):
         """Lexical analyzer (also known as scanner or tokenizer)
@@ -104,20 +127,24 @@ class Lexer(object):
                 self.skip_whitespace()
                 continue
 
-            if self.current_char.isdigit():
+            if self.current_char.isdigit() or self.current_char == ".":
                 return Token(INTEGER, self.integer())
 
             if self.current_char.isalpha():
                 w = self.word()
-                if(w.upper() == "COS"):
+                if(w == "E"):
+                    return Token(INTEGER, math.e)
+                elif(w == "PI"):
+                    return Token(INTEGER, math.pi)
+                elif(w == "COS"):
                     return Token(COS, self.word())
-                elif(w.upper() == "SIN"):
+                elif(w == "SIN"):
                     return Token(SIN, self.word())
-                elif(w.upper() == "EXP"):
+                elif(w == "EXP"):
                     return Token(EXP, self.word())
-                elif(w.upper() == "POW"):
+                elif(w == "POW"):
                     return Token(POW, self.word())
-                elif(w.upper() == "LOG"):
+                elif(w == "LOG"):
                     return Token(LOG, self.word())
                 else:
                     return Token(VAR, w)
