@@ -479,9 +479,13 @@ class NodeVisitor(object):
         visitor = getattr(self, method_name, self.generic_visit)
         return visitor(node)
 
+    def str_visit(self, node):
+        method_name = 'str_visit_' + type(node).__name__
+        str_visitor = getattr(self, method_name, self.generic_visit)
+        return str_visitor(node)
+
     def generic_visit(self, node):
         raise Exception('No visit_{} method'.format(type(node).__name__))
-
 
 class Interpreter(NodeVisitor):
     def __init__(self, parser):
@@ -501,8 +505,38 @@ class Interpreter(NodeVisitor):
         elif node.op.type == POW:
             return math.pow(self.visit(node.left), self.visit(node.right))
 
+    def str_visit_BinOp(self, node):
+        if node.op.type == PLUS:
+            l = self.str_visit(node.left)
+            r = self.str_visit(node.right)
+            if l == "0":
+                return r
+            if r == "0":
+                return l
+            return "(" + l + '+' + r + ")"
+        elif node.op.type == MINUS:
+            return "(" + self.str_visit(node.left) + '-_split' + self.str_visit(node.right) + ")"
+        elif node.op.type == MUL:
+            l = self.str_visit(node.left) 
+            r = self.str_visit(node.right)
+            if l == "0" or r == "0":
+                return "0"
+            if l == "1":
+                return r
+            if r == "1":
+                return l
+            else:
+                return l + "*" + r
+        elif node.op.type == DIV:
+            return self.str_visit(node.left) + '/' + self.str_visit(node.right)
+        elif node.op.type == POW:
+            return 'POW(' + self.str_visit(node.left) + ',' + self.str_visit(node.right) + ')'
+
     def visit_Num(self, node):
         return node.value
+
+    def str_visit_Num(self, node):
+        return str(node.value)
 
     def visit_Var(self, node):
         if self.vardict is None:
@@ -510,6 +544,18 @@ class Interpreter(NodeVisitor):
         if node.name not in self.vardict:
             raise NameError("var {} not in var dict".format(node.name))
         return self.vardict[node.name]
+
+    def str_visit_Var(self, node):
+        name = node.name
+        if name[:2] == "d_":
+            if self.vardict is None:
+                raise NameError("no var dict passed in")
+            if name not in self.vardict:
+                raise NameError("var {} not in var dict".format(name))
+            return str(self.vardict[name])
+        else:
+            return str(name)
+
 
     def visit_UnaryOp(self, node):
         op = node.op.type
@@ -526,6 +572,21 @@ class Interpreter(NodeVisitor):
         elif op == LOG:
             return math.log(self.visit(node.expr))
 
+    def str_visit_UnaryOp(self, node):
+        op = node.op.type
+        if op == PLUS:
+            return "+" + self.str_visit(node.expr)
+        elif op == MINUS:
+            return "-" + self.str_visit(node.expr)
+        elif op == COS:
+            return "COS(" + self.str_visit(node.expr) + ")"
+        elif op == SIN:
+            return "SIN(" + self.str_visit(node.expr) + ")"
+        elif op == EXP:
+            return "EXP(" + self.str_visit(node.expr) + ")"
+        elif op == LOG:
+            return "LOG(" + self.str_visit(node.expr) + ")"
+
     def interpret(self, vd=None):
         self.get_vardict(vd)
         tree = self.tree
@@ -540,7 +601,16 @@ class Interpreter(NodeVisitor):
         if tree is None:
             return ''
         return self.visit(tree)
-
+    
+    def symbolic_diff(self, vd=None, dv=None):
+        original_vd = vd
+        self.get_vardict(vd)
+        self.get_diffvar(dv)
+        tree = self.dtree
+        if tree is None:
+            return ''
+        return self.str_visit(tree)
+        
     def diff_all(self, vd=None):
         self.get_vardict(vd)
         tree = self.dtree
