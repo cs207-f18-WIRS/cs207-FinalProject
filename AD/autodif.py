@@ -1,4 +1,4 @@
-import AD.interpreter as ast
+import interpreter as ast
 
 class AD():
     """
@@ -52,9 +52,15 @@ class AD():
             new_interpreter = ast.Interpreter(new_parser)
         return new_interpreter.differentiate(self.vd, dv)
     
-    def symbolic_diff(self, dv, vd=None):
+    def symbolic_diff(self, dv, vd=None, order=1):
         self.set_point(vd)
-        return self.interpreter.symbolic_diff(self.vd, dv)
+        new_interpreter = self.interpreter
+        for i in range(order-1):
+            new_frmla = new_interpreter.symbolic_diff(self.vd, dv)
+            new_lexer = ast.Lexer(new_frmla)
+            new_parser = ast.Parser(new_lexer)
+            new_interpreter = ast.Interpreter(new_parser)
+        return new_interpreter.symbolic_diff(self.vd, dv)
     
     def diff_all(self, vd=None):
         self.set_point(vd)
