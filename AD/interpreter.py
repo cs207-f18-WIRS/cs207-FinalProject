@@ -515,7 +515,7 @@ class Interpreter(NodeVisitor):
                 return l
             return "(" + l + '+' + r + ")"
         elif node.op.type == MINUS:
-            return "(" + self.str_visit(node.left) + '-_split' + self.str_visit(node.right) + ")"
+            return "(" + self.str_visit(node.left) + '-' + self.str_visit(node.right) + ")"
         elif node.op.type == MUL:
             l = self.str_visit(node.left) 
             r = self.str_visit(node.right)
