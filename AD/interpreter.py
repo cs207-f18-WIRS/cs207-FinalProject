@@ -515,6 +515,12 @@ class Interpreter(NodeVisitor):
                 return l
             return "(" + l + '+' + r + ")"
         elif node.op.type == MINUS:
+            l = self.str_visit(node.left)
+            r = self.str_visit(node.right)
+            if r == "0":
+                return l
+            if l == "0":
+                return "(-" + r + ")"
             return "(" + self.str_visit(node.left) + '-' + self.str_visit(node.right) + ")"
         elif node.op.type == MUL:
             l = self.str_visit(node.left) 
@@ -526,9 +532,9 @@ class Interpreter(NodeVisitor):
             if r == "1":
                 return l
             else:
-                return l + "*" + r
+                return "(" + l + "*" + r + ")"
         elif node.op.type == DIV:
-            return self.str_visit(node.left) + '/' + self.str_visit(node.right)
+            return "(" + self.str_visit(node.left) + '/' + self.str_visit(node.right) + ")"
         elif node.op.type == POW:
             return 'POW(' + self.str_visit(node.left) + ',' + self.str_visit(node.right) + ')'
 
@@ -555,7 +561,6 @@ class Interpreter(NodeVisitor):
             return str(self.vardict[name])
         else:
             return str(name)
-
 
     def visit_UnaryOp(self, node):
         op = node.op.type
