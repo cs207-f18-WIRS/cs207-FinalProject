@@ -34,6 +34,7 @@ class FD:
         n = str(self) + "+" + str(other)
         if not isinstance(other, FD):
             z = FD(n, self.value + other, self.dual)
+            return z
         z = FD(n, self.value + other.value, self.dual + other.dual)
         return z
 
