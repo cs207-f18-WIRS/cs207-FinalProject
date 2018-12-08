@@ -1,6 +1,6 @@
 import pytest
 import math
-from AD import f_ad as f_ad
+from AD import for_ad as f_ad
 
 a = f_ad.FD("a", 2, 1)
 b = f_ad.FD("b", 3, 0)
