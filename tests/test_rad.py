@@ -1,4 +1,6 @@
-import r_ad
+import pytest
+import math
+from AD import r_ad as r_ad
 
 a = r_ad.Var("a", 2)
 b = r_ad.Var("b", 3)
