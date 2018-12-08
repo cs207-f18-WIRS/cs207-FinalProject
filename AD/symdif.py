@@ -1,15 +1,15 @@
 import interpreter as ast
 
-class AD():
+class SD():
     """
     User friendly interface for the AST interpreter.
     Usage
     =============
-    import autodif
+    import symdif
     def main():
         f1 = "x*y*z"
         vd = "x:2,y:3,z:4"
-        F1 = autodif.AD(f1)
+        F1 = symdif.SD(f1)
         print(F1.diff_all(vd))
         print(F1.diff("x"))
         F1.new_formula("a+b")
