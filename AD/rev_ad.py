@@ -97,15 +97,89 @@ class Var:
 def sin(x):
     if not isinstance(x, Var):
         return math.sin(x)
-    n = "SIN(" + str(x) + ")"
+    n = "sin(" + str(x) + ")"
     z = Var(n, math.sin(x.value))
     x.children.append((math.cos(x.value), z))
     return z
 
-x = Var("x", 2)
-y = Var("y", 3)
+def cos(x):
+    if not isinstance(x, Var):
+        return math.cos(x)
+    n = "cos(" + str(x) + ")"
+    z = Var(n, math.cos(x.value))
+    x.children.append((-math.sin(x.value), z))
+    return z
+
+def tan(x):
+    if not isinstance(x, Var):
+        return math.tan(x)
+    n = "tan(" + str(x) + ")"
+    z = Var(n, math.tan(x.value))
+    x.children.append((1.0+math.tan(x.value)**2, z))
+    return z
+
+def ln(x):
+    if not isinstance(x, Var):
+        return math.log(x)
+    n = "ln(" + str(x) + ")"
+    z = Var(n, math.log(x.value))
+    x.children.append((1.0/x.value, z))
+    return z
+
+def arcsin(x):
+    if not isinstance(x, Var):
+        return math.asin(x)
+    n = "arcsin(" + str(x) + ")"
+    z = Var(n, math.asin(x.value))
+    x.children.append((1.0/math.sqrt(1.0-x.value**2), z))
+    return z
+
+def arccos(x):
+    if not isinstance(x, Var):
+        return math.acos(x)
+    n = "arccos(" + str(x) + ")"
+    z = Var(n, math.acos(x.value))
+    x.children.append((-1.0/math.sqrt(1.0-x.value**2), z))
+    return z
+
+def arctan(x):
+    if not isinstance(x, Var):
+        return math.atan(x)
+    n = "arctan(" + str(x) + ")"
+    z = Var(n, math.atan(x.value))
+    x.children.append((1.0/(1.0+x.value**2), z))
+    return z
+# COS, TAN, LOG, ARCSIN, ARCCOS, ARCTAN, SINH, COSH, TANH, COTH, SECH, CSCH
+
+def sinh(x):
+    if not isinstance(x, Var):
+        return math.sinh(x)
+    n = "sinh(" + str(x) + ")"
+    z = Var(n, math.sinh(x.value))
+    x.children.append(math.cosh(x.value), z))
+    return z
+
+def cosh(x):
+    if not isinstance(x, Var):
+        return math.cosh(x)
+    n = "cosh(" + str(x) + ")"
+    z = Var(n, math.cosh(x.value))
+    x.children.append(math.sinh(x.value), z))
+    return z
+
+def tanh(x):
+    if not isinstance(x, Var):
+        return math.tanh(x)
+    n = "tanh(" + str(x) + ")"
+    z = Var(n, math.tanh(x.value))
+    x.children.append(1.0-math.tanh(x.value)**2, z))
+    return z
+
+
+x = Var("x", 0)
+y = Var("y", 1)
 z = Var("z", 4)
-d = x*(x**y**z)/(y*z-x+z)
+d = math.e**(x+y)
 
 d.grad_value = 1.0
 
