@@ -10,6 +10,6 @@
   - You will be asked to provide your username and password. Provide the credentials you used to register to PyPi earlier.
   - **Note:** if the project name has already been registered on test.pypi.org and pypi.org you will get the following error 'his filename has already been used, use a different version'.
 
-**Your package is now uploaded! Visit https://pypi.org/project/AD-testing-packaging-CS207/ to see your package online!**
+**The package is now uploaded: visit https://pypi.org/project/AD-cs207/ to see your package online.**
   
 **Go to the 'How-to-install.md' guidelines for installing your newly uploaded package.**

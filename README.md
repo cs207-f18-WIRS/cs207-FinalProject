@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/cs207-f18-WIRS/cs207-FinalProject/badge.svg?branch=master)](https://coveralls.io/github/cs207-f18-WIRS/cs207-FinalProject?branch=master)
 
 
-This repository contains the Final Project Deliverable on Automatic Differentiation for the Harvard Course CS 207: Systems Development for Computational Science. The Python package is also distributed on [```PyPi: 'AD-testing-packaging-CS207'```](https://pypi.org/project/ad-testing-packaging-cs207/) 
+This repository contains the Final Project Deliverable on Automatic Differentiation for the Harvard Course CS 207: Systems Development for Computational Science. The Python package is also distributed on [```PyPi: 'AD-cs207'```](https://pypi.org/project/AD-cs207/) 
 
 ## Documentation can be found at [```docs```](https://github.com/cs207-f18-WIRS/cs207-FinalProject/tree/master/docs):
   - [```docs/How-to-install-and-use.md:```](https://github.com/cs207-f18-WIRS/cs207-FinalProject/blob/master/docs/How-to-install-and-use.md) Explanation on how to install and use the package.
