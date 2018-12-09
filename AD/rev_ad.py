@@ -156,7 +156,7 @@ def sinh(x):
         return math.sinh(x)
     n = "sinh(" + str(x) + ")"
     z = Var(n, math.sinh(x.value))
-    x.children.append(math.cosh(x.value), z))
+    x.children.append((math.cosh(x.value), z))
     return z
 
 def cosh(x):
@@ -164,7 +164,7 @@ def cosh(x):
         return math.cosh(x)
     n = "cosh(" + str(x) + ")"
     z = Var(n, math.cosh(x.value))
-    x.children.append(math.sinh(x.value), z))
+    x.children.append((math.sinh(x.value), z))
     return z
 
 def tanh(x):
@@ -172,7 +172,7 @@ def tanh(x):
         return math.tanh(x)
     n = "tanh(" + str(x) + ")"
     z = Var(n, math.tanh(x.value))
-    x.children.append(1.0-math.tanh(x.value)**2, z))
+    x.children.append((1.0-math.tanh(x.value)**2, z))
     return z
 
 
