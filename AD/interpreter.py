@@ -12,7 +12,7 @@ import unicodedata
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, VAR, COS, SIN, EXP,POW, LOG, COMMA = (
+INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, VAR, COS, SIN, EXP,POW, LOG, COMMA, TAN, ARCSIN, ARCCOS, ARCTAN, SINH, COSH, TANH = (
     'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'VAR', 'COS', 'SIN', 'EXP', 'POW', 'LOG', ',', 'TAN', 'ARCSIN', 'ARCCOS', 'ARCTAN', 'SINH', 'COSH', 'TANH'
 )
 
