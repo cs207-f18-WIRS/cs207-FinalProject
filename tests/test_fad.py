@@ -2,6 +2,7 @@ import pytest
 import math
 from AD import for_ad as f_ad
 
+# Testing addition
 a = f_ad.FD("a", 2, 1)
 b = f_ad.FD("b", 3, 0)
 c = f_ad.FD("c", 4, 0)
@@ -31,6 +32,37 @@ d = f_ad.FD("d", 5, 1)
 e = 10-(1+a+b+1)+2*c*d*3/(a*a)
 assert(e.grad() == 6)
 
+# Testing subtraction
+a = f_ad.FD("a", 2, 1)
+b = f_ad.FD("b", 3, 0)
+c = f_ad.FD("c", 4, 0)
+d = f_ad.FD("d", 5, 0)
+e = 10-(1+a-b-1)+2*c*d*3/(a*a)
+print(str(e))
+assert(e.grad() == -31)
+
+a = f_ad.FD("a", 2, 0)
+b = f_ad.FD("b", 3, 1)
+c = f_ad.FD("c", 4, 0)
+d = f_ad.FD("d", 5, 0)
+e = 10-(1+a-b-1)+2*c*d*3/(a*a)
+assert(e.grad() == 1)
+
+a = f_ad.FD("a", 2, 0)
+b = f_ad.FD("b", 3, 0)
+c = f_ad.FD("c", 4, 1)
+d = f_ad.FD("d", 5, 0)
+e = 10-(1+a-b-1)+2*c*d*3/(a*a)
+assert(e.grad() == 7.5)
+
+a = f_ad.FD("a", 2, 0)
+b = f_ad.FD("b", 3, 0)
+c = f_ad.FD("c", 4, 0)
+d = f_ad.FD("d", 5, 1)
+e = 10-(1+a-b-1)+2*c*d*3/(a*a)
+assert(e.grad() == 6)
+
+# Testing multiplication
 a = f_ad.FD("a", 2, 1)
 b = f_ad.FD("b", 3, 0)
 c = f_ad.FD("c", 4, 0)
@@ -62,31 +94,32 @@ g = e**e
 print(str(g))
 assert(abs(g.grad() - 3.4832656290951470828519449502778488486964420737048471e51) < 1e44)
 
+# Testing division
 a = f_ad.FD("a", 2, 1)
 b = f_ad.FD("b", 3, 0)
 c = f_ad.FD("c", 4, 0)
 d = f_ad.FD("d", 5, 0)
-e = 10-(1+a-b+1)+2*c*d*3/(a*a)
+e = 10-(1+a-b-1)+2*c/d*3/(a*a)
 print(str(e))
-assert(e.grad() == -31)
+assert(e.grad() == -2.2)
 
 a = f_ad.FD("a", 2, 0)
 b = f_ad.FD("b", 3, 1)
 c = f_ad.FD("c", 4, 0)
 d = f_ad.FD("d", 5, 0)
-e = 10-(1+a-b+1)+2*c*d*3/(a*a)
+e = 10-(1+a-b-1)+2*c/d*3/(a*a)
 assert(e.grad() == 1)
 
 a = f_ad.FD("a", 2, 0)
 b = f_ad.FD("b", 3, 0)
 c = f_ad.FD("c", 4, 1)
 d = f_ad.FD("d", 5, 0)
-e = 10-(1+a-b+1)+2*c*d*3/(a*a)
-assert(e.grad() == 7.5)
+e = 10-(1+a-b-1)+2*c/d*3/(a*a)
+assert(e.grad() == 0.3)
 
 a = f_ad.FD("a", 2, 0)
 b = f_ad.FD("b", 3, 0)
 c = f_ad.FD("c", 4, 0)
 d = f_ad.FD("d", 5, 1)
-e = 10-(1+a-b+1)+2*c*d*3/(a*a)
-assert(e.grad() == 6)
+e = 10-(1+a-b-1)+2*c/d*3/(a*a)
+assert(e.grad() == -0.24)
