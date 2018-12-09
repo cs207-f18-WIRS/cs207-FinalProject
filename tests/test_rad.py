@@ -7,9 +7,7 @@ b = r_ad.Var("b", 3)
 c = r_ad.Var("c", 4)
 d = r_ad.Var("d", 5)
 e = 10-(1+a+b+1)+2*c*d*3/(a*a)
-
 e.grad_value = 1.0
-
 print(str(e))
 assert(a.grad() == -31)
 assert(b.grad() == -1)
