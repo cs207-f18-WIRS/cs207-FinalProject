@@ -14,6 +14,7 @@ setuptools.setup(
     description='Automatic Differentiation Package',
     long_description=long_description,
     long_description_content_type='text/markdown',
+    install_requires=[ "requests" ]
     packages=setuptools.find_packages(),
     keywords=['Automatic differentiation', 'gradients', 'Python'],
     url='https://github.com/cs207-f18-WIRS/cs207-FinalProject',
