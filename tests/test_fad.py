@@ -101,7 +101,7 @@ c = f_ad.FD("c", 4, 0)
 d = f_ad.FD("d", 5, 0)
 e = 10-(1+a-b/1)+2*c/d*(3/a)
 print(str(e))
-assert(e.grad() == -2.125)
+assert(e.grad() == -2.2)
 
 a = f_ad.FD("a", 2, 0)
 b = f_ad.FD("b", 3, 1)
