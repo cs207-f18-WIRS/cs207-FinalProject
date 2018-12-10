@@ -63,7 +63,7 @@ e.grad_value = 1.0
 print(str(e))
 assert(a.grad() == -2.2)
 assert(b.grad() == 1)
-assert(abs(c.grad() - 0.6) < 1e-20)
+assert(abs(c.grad() - 0.6) < 1e-10)
 assert(d.grad() == -0.48)
 
 # Testing power
