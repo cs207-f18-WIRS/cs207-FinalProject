@@ -141,7 +141,7 @@ def test_2():
 def test_3():
     # Example using sin, cos and pow:  
     # sin(x)^2+cos(x)^2 = 1 thus the x-derivative=0
-    f1 = '(POW(SIN(x),2) + POW(COS(x),2))'
+    f1 = "(POW(SIN(x),2) + POW(COS(x),2))"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
@@ -151,7 +151,7 @@ def test_3():
 def test_4():
     # Example using exp
     # dx of e^x =  e^x
-    f1 = 'EXP(x)'
+    f1 = "EXP(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
@@ -160,69 +160,62 @@ def test_4():
 def test_5():
     # Example using tan and the latex formula
     # dx of tan(x) =  1/cos^2(x)
-    f1 = 'TAN(x)'
+    f1 = "TAN(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x", output='latex')) == '\\frac{1}{x}' 
-    # INCORRECT SHOULD BE 1/cos^2(x) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    assert str(F1.symbolic_diff("x", output='latex')) == '\\frac{1}{\\cos^{2}{\\left (x \\right )}}'
 
 def test_6():
     # Example using arcsin
     # dx of asin(x) =  1/sqrt(1-x^2)
-    f1='ARCSIN(x)'
+    f1="ARCSIN(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x", output='pretty')) == '1/x'
-    # INCORRECT SHOULD BE 1/sqrt(1-x^2) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    assert str(F1.symbolic_diff("x", output='pretty')) == '(-x**2 + 1)**(-0.5)'
 
 def test_7():
     # Example using arccos
     # dx of acos(x) =  -1/sqrt(1-x^2)
-    f1='ARCSIN(x)'
+    f1="ARCCOS(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x", output='pretty')) == '1/x'
-    # INCORRECT SHOULD BE -1/sqrt(1-x^2) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    assert str(F1.symbolic_diff("x")) == '-(-x**2 + 1)**(-0.5)'
 
 def test_8():
     # Example using arctan
     # dx of atan(x) =  1/(x^2+1)
-    f1='ARCTAN(x)'
+    f1="ARCTAN(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x", output='all')) == '1/x'
-    # INCORRECT SHOULD BE 1/(x^2+1) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    assert str(F1.symbolic_diff("x", output='all')) == '(x**2 + 1)**(-1.0)'
 
 def test_9():
     # Example using hyperbolic sine
-    # dx of sinh(x) =  (e^(-x)+e^(x))/2
-    f1='SINH(x)'
+    # dx of sinh(x) =  (e^(-x)+e^(x))/2 = cosh(x)
+    f1="SINH(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x")) == '1/x'
-    # INCORRECT SHOULD BE (e^(-x)+e^(x))/2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    assert str(F1.symbolic_diff("x")) == 'cosh(x)'
 
 def test_10():
     # Example using hyperbolic cose
-    # dx of cosh(x) =  (e^(x)-e^(-x))/2
-    f1='COSH(x)'
+    # dx of cosh(x) =  (e^(x)-e^(-x))/2 = sinh(x)
+    f1="COSH(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x")) == '1/x'
-    # INCORRECT SHOULD BE (e^(x)-e^(-x))/2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    assert str(F1.symbolic_diff("x")) == 'sinh(x)'
 
 def test_11():
     # Example using hyperbolic tan
-    # dx of tanh(x) =  4/(e^(x)+e^(-x))^2
-    f1='TANH(x)'
+    # dx of tanh(x) = 4/(e^(x)+e^(-x))^2 =sech^2(x) = 1/cosh^2(x)
+    f1="TANH(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x")) == '1/x'
-    # INCORRECT SHOULD BE 4/(e^(x)+e^(-x))^2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    assert str(F1.symbolic_diff("x")) == '1.0/cosh(x)**2'
