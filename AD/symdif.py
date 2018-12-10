@@ -136,11 +136,13 @@ class SD():
         string_for_sympy=""
         string_for_sympy2=""
         split_variables=self.vd.split(",")
+        
         for var in split_variables:
             l=var.split(":")
             string_for_sympy=string_for_sympy+l[0]+" "	
             string_for_sympy2=string_for_sympy2+l[0]+", "
-        exec(string_for_sympy2 + "= sympy.symbols('" + string_for_sympy+ "')")
+            
+        exec(string_for_sympy2[:-2] + "= sympy.symbols('" + string_for_sympy+ "')")
             
         if output == 'default':
             return sympy.simplify(eval(formul))
