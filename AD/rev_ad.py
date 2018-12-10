@@ -96,6 +96,7 @@ class Var:
 
 def sin(x):
     if not isinstance(x, Var):
+        print('Bingo')
         return math.sin(x)
     n = "sin(" + str(x) + ")"
     z = Var(n, math.sin(x.value))

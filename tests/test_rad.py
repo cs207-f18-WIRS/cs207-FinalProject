@@ -91,6 +91,13 @@ assert(abs(b.grad() - 0.14112000805986722210074480280811027984693326425226558415
 assert(abs(c.grad() - 17.55412591396215191291462436160988967759736172548402544260) < 1e-10)
 assert(abs(d.grad() - 1.736731923524366374706013627400985884679644151050713195127) < 1e-10)
 
+a = r_ad.Var("a", 2)
+b = r_ad.Var("b", 3)
+g= r_ad.sin(a)*r_ad.sin(2)+r_ad.cos(b)*r_ad.cos(3)+1*r_ad.tan(4)
+g.grad_value = 1.0
+assert(abs(a.grad() + 0.37840124765396416)< 1e-7)
+assert(abs(b.grad() - 0.13970774909946293)< 1e-7)
+
 # Testing inverse trig functions
 a = r_ad.Var("a", 0.2)
 b = r_ad.Var("b", 0.3)
@@ -102,3 +109,35 @@ assert(abs(a.grad() + 2854.82) < 1e-2)
 assert(abs(b.grad() - 1.04828) < 1e-2)
 assert(abs(c.grad() - 646.552) < 1e-2)
 assert(abs(d.grad() - 57.076) < 1e-2)
+a = r_ad.Var("a", 1)
+g = a*r_ad.arcsin(1)*r_ad.arccos(0.5)*r_ad.arctan(3)
+g.grad_value = 1.0
+assert(abs(a.grad() - 2.054597942070645 )< 1e-7) # arcsin(1)*arccos(0.5)*arctan(3) =2.054....
+
+# Testing log function
+a = r_ad.Var("a", 5)
+g = r_ad.ln(a)
+g.grad_value = 1.0
+assert(abs(a.grad() - 0.2 )< 1e-7)
+a = r_ad.Var("a", 5)
+g = r_ad.ln(a)*r_ad.ln(100)
+g.grad_value = 1.0
+assert(abs(a.grad()-0.9210340371976184 )< 1e-7) # ln(100)*0.2
+
+# Testing hyperbolic functions
+a = r_ad.Var("a", 0.4)
+g = r_ad.sinh(a)
+g.grad_value = 1.0
+assert(abs(a.grad() - 1.0810723718384547 )< 1e-7) # cosh(.4) = 1.081072...
+a = r_ad.Var("a", 0.5)
+g = r_ad.cosh(a)
+g.grad_value = 1.0
+assert(abs(a.grad() - 0.5210953054937474 )< 1e-7) # cosh(5) = 74.209...
+a = r_ad.Var("a", 0.1)
+g = r_ad.tanh(a)
+g.grad_value = 1.0
+assert(abs(a.grad() - 0.9900662908474398 )< 1e-7) # 1/cosh(0.1)^2 = 0.990066...
+a = r_ad.Var("a", 1)
+g = a*r_ad.sinh(1)*r_ad.cosh(0.5)*r_ad.tanh(3)
+g.grad_value = 1.0
+assert(abs(a.grad() - 1.3186340022874907 )< 1e-7) # sinh(1)*cosh(0.5)*tanh(3) =1.3186....
