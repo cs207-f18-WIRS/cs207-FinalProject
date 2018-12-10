@@ -110,6 +110,8 @@ def test_f11():
     F1.set_point(vd)
     assert math.fabs(F1.val() - 4) < 1e-7
     assert math.fabs(F1.diff("x") - 1) < 1e-7
+    assert math.fabs(F1.diff("x", order=1) - 1) < 1e-7
+    assert math.fabs(F1.diff("x", order=2) - 0) < 1e-7
 
 def test_f12():
     f1 = "x+3)))"
@@ -156,6 +158,17 @@ def test_4():
     F1 = symdif.SD(f1)
     F1.set_point(vd)
     assert str(F1.symbolic_diff("x", output='default')) == 'exp(x)'
+
+def test_4_order():
+    # Example using exp
+    # dx of e^(2x) =  2*e^(2*x)
+    f1 = "EXP(2*x)"
+    vd = "x:2"
+    F1 = symdif.SD(f1)
+    F1.set_point(vd)
+    assert str(F1.symbolic_diff("x", order=1, output='default')) == '2.0*exp(2.0*x)'
+    assert str(F1.symbolic_diff("x", order=2, output='default')) == '4.0*exp(2.0*x)'
+    assert str(F1.symbolic_diff("x", order=3, output='default')) == '8.0*exp(2.0*x)'
     
 def test_5():
     # Example using tan and the latex formula
@@ -169,7 +182,7 @@ def test_5():
 def test_6():
     # Example using arcsin
     # dx of asin(x) =  1/sqrt(1-x^2)
-    f1="ARCSIN(x)"
+    f1= "ARCSIN(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
@@ -178,7 +191,7 @@ def test_6():
 def test_7():
     # Example using arccos
     # dx of acos(x) =  -1/sqrt(1-x^2)
-    f1="ARCCOS(x)"
+    f1= "ARCCOS(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
@@ -187,7 +200,7 @@ def test_7():
 def test_8():
     # Example using arctan
     # dx of atan(x) =  1/(x^2+1)
-    f1="ARCTAN(x)"
+    f1= "ARCTAN(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
