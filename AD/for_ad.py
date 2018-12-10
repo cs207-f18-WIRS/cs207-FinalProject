@@ -92,13 +92,27 @@ class FD:
         z = FD(n, other ** self.value, self.dual*math.log(other)*other**self.value)
         return z
 
-def sin(x):
-    if not isinstance(x, FD):
-        return math.sin(x)
-    n = "SIN(" + str(x) + ")"
-    z = FD(n, math.sin(x.value), x.dual*math.cos(x.value))
-    return z
+    def sin(x):
+        if not isinstance(x, FD):
+            return math.sin(x)
+        n = "SIN(" + str(x) + ")"
+        z = FD(n, math.sin(x.value), x.dual*math.cos(x.value))
+        return z
+    
+    def cos(x):
+        if not isinstance(x, FD):
+            return math.cos(x)
+        n = "COS(" + str(x) + ")"
+        z = FD(n, math.cos(x.value), -x.dual*math.sin(x.value))
+        return z
 
+    def tan(x):
+        if not isinstance(x, FD):
+            return math.tan(x)
+        n = "TAN(" + str(x) + ")"
+        z = FD(n, math.tan(x.value), x.dual/(math.cos(x.value)**2))
+        return z
+        
 '''
 x = FD("x", 2, 0)
 y = FD("y", 3, 0)

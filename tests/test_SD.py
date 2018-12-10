@@ -143,11 +143,11 @@ def test_2():
 def test_3():
     # Example using sin, cos and pow:  
     # sin(x)^2+cos(x)^2 = 1 thus the x-derivative=0
-    f1 = "(POW(SIN(x),2) + POW(COS(x),2))"
+    f1 = "SIN(x) + COS(x)"
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x", output='default')) == '-2.0*sin(x)*cos(x)**1.0 + 2.0*sin(x)**1.0*cos(x)'
+    assert str(F1.symbolic_diff("x", output='default')) == '-sin(x) + cos(x)'
     # this is 0
 
 def test_4():
