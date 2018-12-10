@@ -25,7 +25,7 @@ e.grad_value = 1.0
 print(str(e))
 assert(a.grad() == -5)
 assert(b.grad() == 1)
-assert(c.grad() == 2)
+assert(c.grad() == 1)
 assert(d.grad() == 2)
 
 # Testing multiplication
