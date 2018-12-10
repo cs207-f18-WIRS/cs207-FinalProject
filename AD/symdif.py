@@ -114,15 +114,6 @@ class SD():
             
         def TAN(a): # Tangent Function
             return sympy.tan(a)
-            
-        def ARCSIN(a): # Inverse trigonometric functions: inverse sine or arcsine    
-            return sympy.asin(a)
-            
-        def ARCCOS(a): # Inverse trigonometric functions: inverse cosine or arccosine    
-            return sympy.acos(a)
-            
-        def ARCTAN(a): # Inverse trigonometric functions: inverse tangent or arctangent    
-            return sympy.atan(a)
 
         def SINH(a): # Inverse trigonometric functions: inverse sine or arcsine
             return sympy.sinh(a)
@@ -132,7 +123,15 @@ class SD():
             
         def TANH(a): # Inverse trigonometric functions: inverse tangent or arctangent    
             return sympy.tanh(a)
-               
+        
+        # Not needed!    
+        #def ARCSIN(a): # Inverse trigonometric functions: inverse sine or arcsine    
+        #    return sympy.asin(a)
+        #def ARCCOS(a): # Inverse trigonometric functions: inverse cosine or arccosine    
+        #    return sympy.acos(a)
+        #def ARCTAN(a): # Inverse trigonometric functions: inverse tangent or arctangent    
+        #    return sympy.atan(a)
+        
         string_for_sympy=""
         string_for_sympy2=""
         split_variables=self.vd.split(",")
