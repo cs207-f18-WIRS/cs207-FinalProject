@@ -183,10 +183,10 @@ d = math.e**(x+y)
 
 d.grad_value = 1.0
 
-print(str(d))
-print(x.grad())
-print(y.grad())
-print(z.grad())
+#print(str(d))
+#print(x.grad())
+#print(y.grad())
+#print(z.grad())
 
 '''
 Usage
