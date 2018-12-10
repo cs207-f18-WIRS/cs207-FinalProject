@@ -150,17 +150,17 @@ class Lexer(object):
                 elif(w == "TAN"):
                     return Token(TAN, self.word())
                 elif(w == "ARCSIN"):
-                    return Token(LOG, self.word())
+                    return Token(ARCSIN, self.word())
                 elif(w == "ARCCOS"):
-                    return Token(LOG, self.word())
+                    return Token(ARCCOS, self.word())
                 elif(w == "ARCTAN"):
-                    return Token(LOG, self.word())
+                    return Token(ARCTAN, self.word())
                 elif(w == "SINH"):
-                    return Token(LOG, self.word())
+                    return Token(SINH, self.word())
                 elif(w == "COSH"):
-                    return Token(LOG, self.word())
+                    return Token(COSH, self.word())
                 elif(w == "TANH"):
-                    return Token(LOG, self.word())
+                    return Token(TANH, self.word())
                 else:
                     return Token(VAR, wo)
 
