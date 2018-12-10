@@ -101,4 +101,4 @@ g.grad_value = 1.0
 assert(abs(a.grad() + 2854.82) < 1e-2)
 assert(abs(b.grad() - 1.04828) < 1e-2)
 assert(abs(c.grad() - 646.552) < 1e-2)
-assert(abs(d.grad() - 0.57076) < 1e-2)
+assert(abs(d.grad() - 57.076) < 1e-2)
