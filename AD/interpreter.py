@@ -12,8 +12,8 @@ import unicodedata
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, VAR, COS, SIN, EXP,POW, LOG, COMMA = (
-    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'VAR', 'COS', 'SIN', 'EXP', 'POW', 'LOG', ','
+INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF, VAR, COS, SIN, EXP,POW, LOG, COMMA, TAN, ARCSIN, ARCCOS, ARCTAN, SINH, COSH, TANH = (
+    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', '(', ')', 'EOF', 'VAR', 'COS', 'SIN', 'EXP', 'POW', 'LOG', ',', 'TAN', 'ARCSIN', 'ARCCOS', 'ARCTAN', 'SINH', 'COSH', 'TANH'
 )
 
 def is_number(s):
@@ -146,6 +146,20 @@ class Lexer(object):
                 elif(w == "POW"):
                     return Token(POW, self.word())
                 elif(w == "LOG"):
+                    return Token(LOG, self.word())
+                elif(w == "TAN"):
+                    return Token(LOG, self.word())
+                elif(w == "ARCSIN"):
+                    return Token(LOG, self.word())
+                elif(w == "ARCCOS"):
+                    return Token(LOG, self.word())
+                elif(w == "ARCTAN"):
+                    return Token(LOG, self.word())
+                elif(w == "SINH"):
+                    return Token(LOG, self.word())
+                elif(w == "COSH"):
+                    return Token(LOG, self.word())
+                elif(w == "TANH"):
                     return Token(LOG, self.word())
                 else:
                     return Token(VAR, wo)
@@ -287,6 +301,48 @@ class Parser(object):
             x = self.expr()
             self.eat(RPAREN)
             return UnaryOp(token, x)
+        elif token.type == TAN:
+            self.eat(TAN)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
+        elif token.type == ARCSIN:
+            self.eat(ARCSIN)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
+        elif token.type == ARCCOS:
+            self.eat(ARCCOS)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
+        elif token.type == ARCTAN:
+            self.eat(ARCTAN)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
+        elif token.type == SINH:
+            self.eat(SINH)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
+        elif token.type == COSH:
+            self.eat(COSH)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
+        elif token.type == TANH:
+            self.eat(TANH)
+            self.eat(LPAREN)
+            x = self.expr()
+            self.eat(RPAREN)
+            return UnaryOp(token, x)
         elif token.type == LPAREN:
             self.eat(LPAREN)
             node = self.expr()
@@ -374,6 +430,69 @@ class Parser(object):
             node = UnaryOp(token, x)
             self.eat(RPAREN)
             return node, BinOp(left = UnaryOp(Token(COS, "cos"), x), op=Token(MUL,'*'), right=dx)
+        elif token.type == TAN:
+            self.eat(TAN)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left =  BinOp(left = Num(Token(INTEGER, 1)), op = Token(PLUS, '+'),right = BinOp(left = UnaryOp(Token(TAN, "tan"), x), op = Token(MUL, '*'), right = UnaryOp(Token(TAN, "tan"), x))), op=Token(MUL,'*'), right = dx)
+        elif token.type == ARCSIN:
+            self.eat(ARCSIN)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = BinOp(left = BinOp(left = Num(Token(INTEGER, 1)), op = Token(MINUS, '-'), right = BinOp(left = x, op = Token(MUL, '*'), right = x)), op = Token(POW, 'pow'), right = Num(Token(INTEGER, -0.5))), op=Token(MUL,'*'), right = dx)
+        elif token.type == ARCCOS:
+            self.eat(ARCCOS)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, UnaryOp(Token(MINUS, "-"),  BinOp(left = BinOp(left = BinOp(left = Num(Token(INTEGER, 1)), op = Token(MINUS, '-'), right = BinOp(left = x, op = Token(MUL, '*'), right = x)), op = Token(POW, 'pow'), right = Num(Token(INTEGER, -0.5))), op=Token(MUL,'*'), right = dx))
+        elif token.type == ARCTAN:
+            self.eat(ARCTAN)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = BinOp(left = BinOp(left = Num(Token(INTEGER, 1)), op = Token(PLUS, '+'), right = BinOp(left = x, op = Token(MUL, '*'), right = x)), op = Token(POW, 'pow'), right = Num(Token(INTEGER, -1.0))), op=Token(MUL,'*'), right = dx)
+        elif token.type == SINH:
+            self.eat(SINH)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = UnaryOp(Token(COSH, "cosh"), x), op=Token(MUL,'*'), right=dx)
+        elif token.type == COSH:
+            self.eat(COSH)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = UnaryOp(Token(SINH, "sinh"), x), op=Token(MUL,'*'), right=dx)
+        elif token.type == TANH:
+            self.eat(TANH)
+            self.eat(LPAREN)
+            cur = copy.deepcopy(self)
+            x = self.expr()
+            dx = cur.dexpr()
+            node = UnaryOp(token, x)
+            self.eat(RPAREN)
+            return node, BinOp(left = BinOp(left = Num(Token(INTEGER, 1.0)), op = Token(MINUS, '-'), right = BinOp(left = node,op = Token(MUL, '*'), right = node)), op=Token(MUL,'*'), right=dx)
         elif token.type == EXP:
             self.eat(EXP)
             self.eat(LPAREN)
@@ -572,6 +691,20 @@ class Interpreter(NodeVisitor):
             return math.cos(self.visit(node.expr))
         elif op == SIN:
             return math.sin(self.visit(node.expr))
+        elif op == TAN:
+            return math.tan(self.visit(node.expr))
+        elif op == ARCSIN:
+            return math.asin(self.visit(node.expr))
+        elif op == ARCCOS:
+            return math.acos(self.visit(node.expr))
+        elif op == ARCTAN:
+            return math.atan(self.visit(node.expr))
+        elif op == SINH:
+            return math.sinh(self.visit(node.expr))
+        elif op == COSH:
+            return math.cosh(self.visit(node.expr))
+        elif op == TANH:
+            return math.tanh(self.visit(node.expr))
         elif op == EXP:
             return math.exp(self.visit(node.expr))
         elif op == LOG:
@@ -587,6 +720,20 @@ class Interpreter(NodeVisitor):
             return "COS(" + self.str_visit(node.expr) + ")"
         elif op == SIN:
             return "SIN(" + self.str_visit(node.expr) + ")"
+        elif op == TAN:
+            return "TAN(" + self.str_visit(node.expr) + ")"
+        elif op == ARCSIN:
+            return "ARCSIN(" + self.str_visit(node.expr) + ")"
+        elif op == ARCCOS:
+            return "ARCCOS(" + self.str_visit(node.expr) + ")"
+        elif op == ARCTAN:
+            return "ARCTAN(" + self.str_visit(node.expr) + ")"
+        elif op == SINH:
+            return "SINH(" + self.str_visit(node.expr) + ")"
+        elif op == COSH:
+            return "COSH(" + self.str_visit(node.expr) + ")"
+        elif op == TANH:
+            return "TANH(" + self.str_visit(node.expr) + ")"
         elif op == EXP:
             return "EXP(" + self.str_visit(node.expr) + ")"
         elif op == LOG:

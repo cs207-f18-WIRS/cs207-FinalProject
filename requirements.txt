@@ -1,1 +1,1 @@
-# No requirements: Only using Python Standard Libraries e.g. math and copy.
+sympy>=1.3
