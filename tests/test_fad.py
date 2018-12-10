@@ -159,32 +159,35 @@ assert(e.grad() == 6)
 # dx of sin(x) at x=0 : 1 (value 0)
 a = f_ad.FD("a", 0, 1)
 e = f_ad.FD.sin(a)
-assert(e.value == 0)
-assert(e.grad() == 1)
+assert math.fabs(e.value - 0 ) < 1e-7
+assert math.fabs(e.grad() - 1 ) < 1e-7
+
 # dx of sin(x) at x=1 : 0.5403023058681397174009.. (value: 0.8414709848078965066525)
 a = f_ad.FD("a", 1, 1)
 e = f_ad.FD.sin(a)
-assert(e.value == 0.8414709848078965)
-assert(e.grad() == 0.5403023058681398)
+assert math.fabs(e.value - 0.8414709848078965 ) < 1e-7
+assert math.fabs(e.grad() - 0.5403023058681398 ) < 1e-7
 
 # dx of cos(x) at x=0 : 1 (value 0)
 a = f_ad.FD("a", 0, 1)
 e = f_ad.FD.cos(a)
-assert(e.value == 1)
-assert(e.grad() == 0)
+assert math.fabs(e.value - 1 ) < 1e-7
+assert math.fabs(e.grad() - 0 ) < 1e-7
+
 # dx of cos(x) at x=1 : 0.5403023058681397174009.. (value: -0.8414709848078965066525)
 a = f_ad.FD("a", 1, 1)
 e = f_ad.FD.cos(a)
-assert(e.value == 0.5403023058681398 )
-assert(e.grad() == -0.8414709848078965 )
+assert math.fabs(e.value - 0.5403023058681398 ) < 1e-7
+assert math.fabs(e.grad() + 0.8414709848078965 ) < 1e-7
 
 # dx of tan(x) at x=0 : 0 (value A)
 a = f_ad.FD("a", 0, 1)
 e = f_ad.FD.tan(a)
-assert(e.value == 0)
-assert(e.grad() == 1)
+assert math.fabs(e.value - 0 ) < 1e-7
+assert math.fabs(e.grad() - 1 ) < 1e-7
+
 # dx of tan(x) at x=1 : 3.425518820814759 760941.. (value: 1.557407724654902 2305..)
 a = f_ad.FD("a", 1, 1)
 e = f_ad.FD.tan(a)
-assert(e.value == 1.557407724654902 )
-assert(e.grad() == 3.425518820814759 )
+assert math.fabs(e.value - 1.5574077246549023 ) < 1e-7
+assert math.fabs(e.grad() - 3.425518820814759 ) < 1e-7
