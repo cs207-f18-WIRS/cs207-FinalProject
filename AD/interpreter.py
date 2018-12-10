@@ -148,7 +148,7 @@ class Lexer(object):
                 elif(w == "LOG"):
                     return Token(LOG, self.word())
                 elif(w == "TAN"):
-                    return Token(LOG, self.word())
+                    return Token(TAN, self.word())
                 elif(w == "ARCSIN"):
                     return Token(LOG, self.word())
                 elif(w == "ARCCOS"):

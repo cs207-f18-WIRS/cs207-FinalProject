@@ -145,7 +145,7 @@ def test_3():
     vd = "x:2"
     F1 = symdif.SD(f1)
     F1.set_point(vd)
-    assert str(F1.symbolic_diff("x", output='default')) == '2.0*sin(x)**1.0*cos(x) - 2.0*sin(x)*cos(x)**1.0'
+    assert str(F1.symbolic_diff("x", output='default')) == '-2.0*sin(x)*cos(x)**1.0 + 2.0*sin(x)**1.0*cos(x)'
     # this is 0
 
 def test_4():
