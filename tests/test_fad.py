@@ -154,4 +154,4 @@ d = f_ad.FD("d", 5, 1)
 e = 10-(1+a**2*3**b+1)+2*c*d*3/(a*a)
 assert(e.grad() == 6)
 
-# Testing sin, cos, tan
+# Testing trig functions
