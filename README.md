@@ -1,7 +1,7 @@
 # CS207 Final Project Repository
-[![Build Status](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject.svg?branch=master)](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject)
+[![Build Status](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject.svg?branch=master)](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject?)
 
-[![Coverage Status](https://coveralls.io/repos/github/cs207-f18-WIRS/cs207-FinalProject/badge.svg?branch=master)](https://coveralls.io/github/cs207-f18-WIRS/cs207-FinalProject?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/cs207-f18-WIRS/cs207-FinalProject/badge.svg?branch=master)](https://coveralls.io/github/cs207-f18-WIRS/cs207-FinalProject?branch=master?)
 
 
 This repository contains the Final Project Deliverable on Automatic Differentiation for the Harvard Course CS 207: Systems Development for Computational Science. 
