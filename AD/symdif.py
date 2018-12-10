@@ -1,4 +1,5 @@
 import AD.interpreter as ast
+import sympy
 
 class SD():
     """
@@ -27,6 +28,22 @@ class SD():
         print(ret)
         ret = F1.diff("y", order=2)
         print(ret)
+    
+        // symbolic differentiation
+        f1 = "POW(x,3.0)*3.0/x*3.0/x+POW(x,3.0)*(3.0)/x/x/y/y"
+        vd = "x:2,y:3"
+        F1 = symdif.SD(f1)
+        F1.set_point(vd)
+        F1.symbolic_diff("x", output='default')
+           output: '9.0 + 3.0/y**2'
+        F1.symbolic_diff("x", output='latex')
+           output: '9.0 + \\frac{3.0}{y^{2}}'
+        F1.symbolic_diff("x", output='pretty')
+                         3.0
+           output: 9.0 + ---
+                           2
+                         y
+        F1.symbolic_diff("x", output='all') # to print all the results
     """
 
     def __init__(self, frmla):
@@ -52,7 +69,7 @@ class SD():
             new_interpreter = ast.Interpreter(new_parser)
         return new_interpreter.differentiate(self.vd, dv)
     
-    def symbolic_diff(self, dv, vd=None, order=1):
+    def symbolic_diff(self, dv, vd=None, order=1, output='default'):
         self.set_point(vd)
         new_interpreter = self.interpreter
         for i in range(order-1):
@@ -60,7 +77,9 @@ class SD():
             new_lexer = ast.Lexer(new_frmla)
             new_parser = ast.Parser(new_lexer)
             new_interpreter = ast.Interpreter(new_parser)
-        return new_interpreter.symbolic_diff(self.vd, dv)
+        formul = new_interpreter.symbolic_diff(self.vd, dv)
+        simplified = self.symplify(formul, output)
+        return simplified
     
     def diff_all(self, vd=None):
         self.set_point(vd)
@@ -76,3 +95,69 @@ class SD():
         self.parser = ast.Parser(self.lexer)
         self.interpreter = ast.Interpreter(self.parser)
         self.vd = None
+
+    def symplify(self, formul, output):
+        def POW(a, b):
+            return a ** b
+            
+        def EXP(a):
+            return sympy.exp(a)
+            
+        def LOG(a):
+            return sympy.log(a)
+            
+        def COS(a):
+            return sympy.cos(a)
+            
+        def SIN(a):
+            return sympy.sin(a)
+            
+        def TAN(a): # Tangent Function
+            return sympy.tan(a)
+            
+        def ARCSIN(a): # Inverse trigonometric functions: inverse sine or arcsine    
+            return sympy.asin(a)
+            
+        def ARCCOS(a): # Inverse trigonometric functions: inverse cosine or arccosine    
+            return sympy.acos(a)
+            
+        def ARCTAN(a): # Inverse trigonometric functions: inverse tangent or arctangent    
+            return sympy.atan(a)
+
+        def SINH(a): # Inverse trigonometric functions: inverse sine or arcsine
+            return sympy.sinh(a)
+            
+        def COSH(a): # Inverse trigonometric functions: inverse cosine or arccosine    
+            return sympy.cosh(a)
+            
+        def TANH(a): # Inverse trigonometric functions: inverse tangent or arctangent    
+            return sympy.tanh(a)
+               
+        string_for_sympy=""
+        string_for_sympy2=""
+        split_variables=self.vd.split(",")
+        for var in split_variables:
+            l=var.split(":")
+            string_for_sympy=string_for_sympy+l[0]+" "	
+            string_for_sympy2=string_for_sympy2+l[0]+", "
+        exec(string_for_sympy2 + "= sympy.symbols('" + string_for_sympy+ "')")
+            
+        if output == 'default':
+            return sympy.simplify(eval(formul))
+            
+        if output == 'latex':
+            return sympy.latex(sympy.simplify(eval(formul)))
+            
+        if output == 'pretty':
+            sympy.pprint(sympy.simplify(eval(formul)))
+            return sympy.simplify(eval(formul))
+            
+        if output == 'all':
+            print('\nSymbolic differentiation result:')
+            print(formul)
+            print('\nSimplified Pretty Print:\n') ; sympy.pprint(sympy.simplify(eval(formul)))
+            print('\nSimplified Latex code:')
+            print(sympy.latex(sympy.simplify(eval(formul))))
+            print('\nSimplified Default:')
+            print(sympy.simplify(eval(formul)),'\n')
+            return sympy.simplify(eval(formul))
