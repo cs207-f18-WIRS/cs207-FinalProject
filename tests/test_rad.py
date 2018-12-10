@@ -80,10 +80,10 @@ assert(c.grad() == 7.5)
 assert(d.grad() == 6)
 
 # Testing trig functions
-a = 2
-b = 3
-c = 4
-d = 5
+a = r_ad.Var("a", 2)
+b = r_ad.Var("b", 3)
+c = r_ad.Var("c", 4)
+d = r_ad.Var("d", 5)
 g = 10-(1+math.sin(a)+math.cos(b)+1)+2*math.tan(c)*d*3/(a*a)
 g.grad_value = 1.0
 assert(abs(a.grad() + 8.26751278107468948653249990750416723363221998417802108488) < 1e45)
@@ -92,10 +92,10 @@ assert(abs(c.grad() - 17.5541259139621519129146243616098896775973617254840254426
 assert(abs(d.grad() - 1.736731923524366374706013627400985884679644151050713195127) < 1e44)
 
 # Testing inverse trig functions
-a = 2
-b = 3
-c = 4
-d = 5
+a = r_ad.Var("a", 2)
+b = r_ad.Var("b", 3)
+c = r_ad.Var("c", 4)
+d = r_ad.Var("d", 5)
 g = 10-(1+math.asin(a)+math.acos(b)+1)+2*math.atan(c)*d*3/(a*a)
 g.grad_value = 1.0
 assert(abs(a.grad() + 9.943632477510243487944294078213567233883304509797766325 + 0.5773502691896257645091487805019574556476017512701268760j) < 1e45)
