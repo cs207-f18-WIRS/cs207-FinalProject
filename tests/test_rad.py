@@ -63,7 +63,7 @@ e.grad_value = 1.0
 print(str(e))
 assert(a.grad() == -2.2)
 assert(b.grad() == 1)
-assert(abs(c.grad() - 0.6) < 1e-20)
+assert(abs(c.grad() - 0.6) < 1e-10)
 assert(d.grad() == -0.48)
 
 # Testing power
@@ -75,7 +75,7 @@ e = 10-(1+a**2*3**b+1)+2*c*d*3/(a*a)
 e.grad_value = 1.0
 print(str(e))
 assert(a.grad() == -138)
-assert(abs(b.grad() - 118.650127176155846670686485587632776101928980244856940787) < 1e-44)
+assert(abs(b.grad() + 118.650127176155846670686485587632776101928980244856940787) < 1e-10)
 assert(c.grad() == 7.5)
 assert(d.grad() == 6)
 
@@ -88,8 +88,8 @@ g = 10-(1+r_ad.sin(a)+r_ad.cos(b)+1)+2*r_ad.tan(c)*d*3/(a*a)
 g.grad_value = 1.0
 assert(abs(a.grad() + 8.26751278107468948653249990750416723363221998417802108488) < 1e-45)
 assert(abs(b.grad() - 0.141120008059867222100744802808110279846933264252265584151) < 1e-43)
-assert(abs(c.grad() - 17.55412591396215191291462436160988967759736172548402544260) < 1e-44)
-assert(abs(d.grad() - 1.736731923524366374706013627400985884679644151050713195127) < 1e-44)
+assert(abs(c.grad() - 17.55412591396215191291462436160988967759736172548402544260) < 1e-10)
+assert(abs(d.grad() - 1.736731923524366374706013627400985884679644151050713195127) < 1e-10)
 
 # Testing inverse trig functions
 a = r_ad.Var("a", 0.2)
@@ -100,5 +100,5 @@ g = 10-(1+r_ad.arcsin(a)+r_ad.arccos(b)+1)+2*r_ad.arctan(c)*d*3/(a*a)
 g.grad_value = 1.0
 assert(abs(a.grad() + 2854.82) < 1e-2)
 assert(abs(b.grad() - 1.04828) < 1e-2)
-assert(abs(c.grad() - 6.46552) < 1e-2)
-assert(abs(d.grad() - 0.57076) < 1e-2)
+assert(abs(c.grad() - 646.552) < 1e-2)
+assert(abs(d.grad() - 57.076) < 1e-2)
