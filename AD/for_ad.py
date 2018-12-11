@@ -112,15 +112,58 @@ class FD:
         n = "TAN(" + str(x) + ")"
         z = FD(n, math.tan(x.value), x.dual/(math.cos(x.value)**2))
         return z
-        
-'''
-x = FD("x", 2, 0)
-y = FD("y", 3, 0)
-z = FD("z", 4, 1)
-d = x*(x**y**z)/(y*z-x+z)
+    
+    def ln(x):
+        if not isinstance(x, FD):
+          return math.log(x)
+        n = "ln(" + str(x) + ")"
+        z = FD(n, math.log(x.value), x.dual/x.value)
+        return z
 
-d.grad_value = 1.0
+    def arcsin(x):
+        if not isinstance(x, Var):
+          return math.asin(x)
+        n = "arcsin(" + str(x) + ")"
+        z = Var(n, math.asin(x.value))
+        z = FD(n, math.asin(x.value), x.dual/math.sqrt(1.0-x.value**2))
+        return z
+    
+    def arccos(x):
+        if not isinstance(x, Var):
+          return math.acos(x)
+        n = "arccos(" + str(x) + ")"
+        z = Var(n, math.acos(x.value))
+        z = FD(n, math.acos(x.value), -1.0*x.dual/math.sqrt(1.0-x.value**2))
+        return z
 
-print(str(d))
-print(d.grad())
-'''
+    def arctan(x):
+        if not isinstance(x, Var):
+          return math.atan(x)
+        n = "arctan(" + str(x) + ")"
+        z = Var(n, math.atan(x.value))
+        z = FD(n, math.atan(x.value), x.dual/(1.0+x.value**2))
+        return z
+    
+    def sinh(x):
+        if not isinstance(x, Var):
+          return math.sinh(x)
+        n = "sinh(" + str(x) + ")"
+        z = Var(n, math.sinh(x.value))
+        z = FD(n, math.sinh(x.value), x.dual*math.cosh(x.value))
+        return z
+
+    def cosh(x):
+        if not isinstance(x, Var):
+          return math.cosh(x)
+        n = "cosh(" + str(x) + ")"
+        z = Var(n, math.cosh(x.value))
+        z = FD(n, math.cosh(x.value), x.dual*math.sinh(x.value))
+        return z
+    
+    def tanh(x):
+        if not isinstance(x, Var):
+          return math.tanh(x)
+        n = "tanh(" + str(x) + ")"
+        z = Var(n, math.tanh(x.value))
+        z = FD(n, math.tanh(x.value), x.dual*(1.0-math.tanh(x.value)**2)
+        return z
