@@ -159,6 +159,6 @@ class FD:
         if not isinstance(x, FD):
           return math.sqrt(x)
         n = "sqrt(" + str(x) + ")"
-        z = FD(n, math.sqrt(x.value), -0.5*x.dual/math.sqrt(x.value) )
+        z = FD(n, math.sqrt(x.value), 0.5*x.dual/math.sqrt(x.value) )
         return z
        
