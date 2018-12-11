@@ -4,7 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/cs207-f18-WIRS/cs207-FinalProject/badge.svg?branch=master&service=github)](https://coveralls.io/github/cs207-f18-WIRS/cs207-FinalProject?branch=master)
 
 
-This repository contains the Final Project Deliverable on Automatic Differentiation for the Harvard Course CS 207: Systems Development for Computational Science. 
+This repository contains the Final Project Deliverable on Automatic Differentiation for the Harvard Course \n
+"CS 207: Systems Development for Computational Science"
   - [```Github Repository```](https://github.com/cs207-f18-WIRS/cs207-FinalProject)
   - [```PyPi Python Package Index distribution: 'AD-cs207'```](https://pypi.org/project/AD-cs207/) 
 
