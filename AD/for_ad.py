@@ -165,5 +165,5 @@ class FD:
           return math.tanh(x)
         n = "tanh(" + str(x) + ")"
         z = Var(n, math.tanh(x.value))
-        z = FD(n, math.tanh(x.value), x.dual*(1.0-math.tanh(x.value)**2)
+        z = FD(n, math.tanh(x.value), x.dual*(1.0-math.tanh(x.value)**2))
         return z
