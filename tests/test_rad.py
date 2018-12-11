@@ -141,3 +141,11 @@ a = r_ad.Var("a", 1)
 g = a*r_ad.sinh(1)*r_ad.cosh(0.5)*r_ad.tanh(3)
 g.grad_value = 1.0
 assert(abs(a.grad() - 1.3186340022874907 )< 1e-7) # sinh(1)*cosh(0.5)*tanh(3) =1.3186....
+
+# Testing sqrt and natural log
+a = r_ad.Var("a", 5)
+b = r_ad.Var("b", 10)
+g = r_ad.sqrt(a)*r_ad.log(b,math.e)
+g.grad_value = 1.0
+assert(abs(a.grad() - 0.5148736791912362 )< 1e-7)
+assert(r_ad.sqrt(49)+r_ad.log(1000,10) ==10)

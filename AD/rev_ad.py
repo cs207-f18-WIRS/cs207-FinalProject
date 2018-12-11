@@ -133,6 +133,15 @@ def tan(x):
     x.children.append((1.0+math.tan(x.value)**2, z))
     return z
 
+def sqrt(x):
+    """ calculates sqrt of the formula/var x """
+    if not isinstance(x, Var):
+        return math.sqrt(x)
+    n = "sqrt(" + str(x) + ")"
+    z = Var(n, math.sqrt(x.value))
+    x.children.append((0.5/(x.value)**0.5, z))
+    return z
+
 def ln(x):
     """ calculates ln of the formula/var x """
     if not isinstance(x, Var):
@@ -140,6 +149,15 @@ def ln(x):
     n = "ln(" + str(x) + ")"
     z = Var(n, math.log(x.value))
     x.children.append((1.0/x.value, z))
+    return z    
+    
+def log(x, base):
+    """ calculates log(x, base) of the formula/var x """
+    if not isinstance(x, Var):
+        return math.log(x)/math.log(base)
+    n = "ln(" + str(x) + ")/ln(" + str(base) + ")"
+    z = Var(n, math.log(x.value,base))
+    x.children.append((1.0/(x.value*math.log(base)), z))
     return z
 
 def arcsin(x):
