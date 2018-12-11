@@ -3,6 +3,7 @@ import math
 class Var:
     """
     Var class used for reverse AD
+    If derivative doesn't exist at a point for one of the variables, forward AD should be used
     """
     def __init__(self, name, value):
         self.value = value
