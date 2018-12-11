@@ -1,35 +1,20 @@
-# import math
-# import autodif
-# # f1 = "e*pi"
-# # vd = "x:2,y:3,z:4"
-# # F1 = autodif.AD(f1)
-# # print(F1.val(vd))
-# # print(F1.diff_all(vd))
-# # print(F1.diff("x"))
-
-# f1 = "pow(x,3)*y*y"
-# vd = "x:2,y:3"
-# F1 = autodif.AD(f1)
-# F1.set_point(vd)
-# ret = F1.symbolic_diff("x", order=2)
-# print(ret)
-# ret = F1.symbolic_diff("y")
-# print(ret)
-
-# AD
 import math
 class FD:
+    """ implementation of forward AD using dual numbers """
     def __init__(self, string, value, d_seed):
         self.value = value
         self.dual = d_seed
         self.string = string
 
     def __str__(self):
+        """ returns the string value of the function """
         return self.string
 
     def grad(self):
+        """ returns the derivative of the function based on seed """
         return self.dual
 
+    """ Implementation of operators using operator overloading """
     def __add__(self, other):
         n = str(self) + "+" + str(other)
         if not isinstance(other, FD):
@@ -91,7 +76,8 @@ class FD:
         n = "POW(" + str(other) + "," + str(self) + ")"
         z = FD(n, other ** self.value, self.dual*math.log(other)*other**self.value)
         return z
-
+    
+    """ implement unary operations for forward div """
     def sin(x):
         if not isinstance(x, FD):
             return math.sin(x)
