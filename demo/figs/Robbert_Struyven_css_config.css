@@ -1,0 +1,105 @@
+<style>
+/* an example to illustrate how to tweak font sizes */
+
+/* to apply a setting only when under RISE, 
+   be aware that the <body> tag has class .rise-enabled */
+
+
+/* ---------- markdown cells
+ */
+body.rise-enabled div.inner_cell>div.text_cell_render.rendered_html {
+    font-size: 58%;
+}
+/* ---------- code blocks inside markdown
+   i.e. within ``` lines, or 4-space indented
+ */
+body.rise-enabled div.inner_cell>div.text_cell_render.rendered_html>pre {
+    margin: 15px;
+}
+/* ---------- size of code block
+ */
+body.rise-enabled div.CodeMirror pre {font-size: 15pt;} 
+body.rise-enabled div.text_cell_render {
+    font-size: 11pt;
+}
+
+body.rise-enabled div.code_cell>div.text_cell_render.rendered_html> {
+    font-size: 50%;
+}
+/* ---------- size of code block
+output size and in and out []
+ */
+body.rise-enabled div.code_cell{
+    font-size: 90%;
+}
+/* ---------- size of code block
+body.rise-enabled div.inner_cell>div.text_cell_render.rendered_html>pre>code {
+    font-size: 55%;
+}
+div.notebook-container {
+    width: 100%
+}
+
+div.code_cell {
+   flex-direction: row !important;
+}
+
+div.code_cell .input {
+    width: 50%
+}
+
+div.code_cell .output_wrapper {
+    width: 50%
+}
+ */
+
+body.rise-enabled blockquote { background: #AEDE94; }
+body.rise-enabled h1 { 
+    font-size: 50px;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    text-align: left; 
+    padding-left: 10px;
+    background-color: #EEEEEE; 
+    color: black;
+}
+body.rise-enabled h2 { 
+    font-size: 45px;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    text-align: left; 
+    padding-left: 10px;
+    background-color: #EEEEEE; 
+    color: black;
+}
+body.rise-enabled div.exercise {
+	font-size: 12px;
+	background-color: #ffcccc;
+	border-color: #E9967A; 	
+	border-left: 5px solid #EEEEEE; 
+	padding: 0.5em;
+}
+body.rise-enabled div.theme {
+	background-color: #EEEEEE;
+	border-color: #E9967A; 	
+	border-left: 5px solid #800080; 
+	padding: 0.5em;
+	font-size: 10pt;
+}
+body.rise-enabled div.gc { 
+	background-color: #AEDE94;
+	border-color: #E9967A; 	 
+	border-left: 5px solid #800080; 
+	padding: 0.5em;
+	font-size: 12pt;
+}
+body.rise-enabled p.q1 { 
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: left; 
+    padding-left: 5px;
+    background-color: #EEEEEE; 
+    color: black;
+}
+</style>
+
