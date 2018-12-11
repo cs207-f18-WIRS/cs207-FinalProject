@@ -248,5 +248,5 @@ assert math.fabs(e.grad() - 116.39089610875486  ) < 1e-7
 a = f_ad.FD("a", 25, 1)
 e = f_ad.FD.sqrt(a)
 assert math.fabs(e.value - 5 ) < 1e-7
-assert math.fabs(e.grad() + 0.1 ) < 1e-7
+assert math.fabs(e.grad() - 0.1 ) < 1e-7
 assert math.fabs( f_ad.FD.sqrt(49) - 7 ) < 1e-7
