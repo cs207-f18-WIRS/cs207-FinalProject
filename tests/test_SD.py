@@ -232,3 +232,24 @@ def test_11():
     F1 = symdif.SD(f1)
     F1.set_point(vd)
     assert str(F1.symbolic_diff("x")) == '1.0/cosh(x)**2'
+    
+def test_float():
+    f1 = "5e-10"
+    vd = ""
+    F1 = symdif.SD(f1)
+    F1.set_point(vd)
+    assert math.fabs(F1.val() - 5e-10) < 1e-7
+    
+def test_float2():
+    f1 = "5.11"
+    vd = ""
+    F1 = symdif.SD(f1)
+    F1.set_point(vd)
+    assert math.fabs(F1.val() - 5.11) < 1e-7
+    
+def test_float2():
+    f1 = "5.111"
+    vd = ""
+    F1 = symdif.SD(f1)
+    F1.set_point(vd)
+    assert math.fabs(F1.val() - 5.111) < 1e-7
