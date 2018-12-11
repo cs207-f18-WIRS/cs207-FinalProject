@@ -121,49 +121,43 @@ class FD:
         return z
 
     def arcsin(x):
-        if not isinstance(x, Var):
+        if not isinstance(x, FD):
           return math.asin(x)
         n = "arcsin(" + str(x) + ")"
-        z = Var(n, math.asin(x.value))
         z = FD(n, math.asin(x.value), x.dual/math.sqrt(1.0-x.value**2))
         return z
     
     def arccos(x):
-        if not isinstance(x, Var):
+        if not isinstance(x, FD):
           return math.acos(x)
         n = "arccos(" + str(x) + ")"
-        z = Var(n, math.acos(x.value))
         z = FD(n, math.acos(x.value), -1.0*x.dual/math.sqrt(1.0-x.value**2))
         return z
 
     def arctan(x):
-        if not isinstance(x, Var):
+        if not isinstance(x, FD):
           return math.atan(x)
         n = "arctan(" + str(x) + ")"
-        z = Var(n, math.atan(x.value))
         z = FD(n, math.atan(x.value), x.dual/(1.0+x.value**2))
         return z
     
     def sinh(x):
-        if not isinstance(x, Var):
+        if not isinstance(x, FD):
           return math.sinh(x)
         n = "sinh(" + str(x) + ")"
-        z = Var(n, math.sinh(x.value))
         z = FD(n, math.sinh(x.value), x.dual*math.cosh(x.value))
         return z
 
     def cosh(x):
-        if not isinstance(x, Var):
+        if not isinstance(x, FD):
           return math.cosh(x)
         n = "cosh(" + str(x) + ")"
-        z = Var(n, math.cosh(x.value))
         z = FD(n, math.cosh(x.value), x.dual*math.sinh(x.value))
         return z
     
     def tanh(x):
-        if not isinstance(x, Var):
+        if not isinstance(x, FD):
           return math.tanh(x)
         n = "tanh(" + str(x) + ")"
-        z = Var(n, math.tanh(x.value))
         z = FD(n, math.tanh(x.value), x.dual*(1.0-math.tanh(x.value)**2))
         return z

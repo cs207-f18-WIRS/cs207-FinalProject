@@ -197,3 +197,35 @@ assert math.fabs(e.grad() - 3.425518820814759 ) < 1e-7
 # tan(0) and tan(1)
 assert math.fabs(f_ad.FD.tan(0) - 0 ) < 1e-7
 assert math.fabs(f_ad.FD.tan(1) - 1.5574077246549023 ) < 1e-7
+
+# dx of ln(x) at x=0 : 1/x => 1/0.5= 2.0
+a = f_ad.FD("a", 0.5, 1)
+e = f_ad.FD.ln(a)
+assert math.fabs(e.value + 0.6931471805599453 ) < 1e-7
+assert math.fabs(e.grad() - 2.0 ) < 1e-7
+# ln(0.5)
+assert math.fabs(f_ad.FD.ln(0.5) + 0.6931471805599453 ) < 1e-7
+
+# dx of arcsin(x) at x=0.5 = 1.1547005383792517 ( value : 0.5235987755982988 ) 
+a = f_ad.FD("a", 0.5, 1)
+e = f_ad.FD.arcsin(a)
+assert math.fabs(e.value - 0.5235987755982988 ) < 1e-7
+assert math.fabs(e.grad() - 1.1547005383792517 ) < 1e-7
+# arcsin(0.5)
+assert math.fabs(f_ad.FD.arcsin(0.5) - 0.5235987755982988 ) < 1e-7
+
+# dx of arccos(x) at x=0.5 = - 1.1547005383792517 ( value : - 1.0471975511965976 ) 
+a = f_ad.FD("a", 0.5, 1)
+e = f_ad.FD.arccos(a)
+assert math.fabs(e.value - 1.0471975511965976 ) < 1e-7
+assert math.fabs(e.grad() + 1.1547005383792517 ) < 1e-7
+# arcos(0.5)
+assert math.fabs(f_ad.FD.arccos(0.5) - 1.0471975511965976 ) < 1e-7
+
+# dx of arctan(x) at x=0.5 =  ( value :  ) 
+a = f_ad.FD("a", 0.5, 1)
+e = f_ad.FD.arctan(a)
+assert math.fabs(e.value - 0.46364760900080615 ) < 1e-7
+assert math.fabs(e.grad() - 0.8  ) < 1e-7
+# arcos(0.5)
+assert math.fabs(f_ad.FD.arctan(0.5) - 0.46364760900080615 ) < 1e-7
