@@ -5,7 +5,6 @@ class FD:
         self.value = value
         self.dual = d_seed
         self.string = string
-        print('Importing Forward Mode Automatic Differentiation')
 
     def __str__(self):
         """ returns the string value of the function """
