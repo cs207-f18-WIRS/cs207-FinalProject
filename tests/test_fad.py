@@ -229,3 +229,9 @@ assert math.fabs(e.value - 0.46364760900080615 ) < 1e-7
 assert math.fabs(e.grad() - 0.8  ) < 1e-7
 # arcos(0.5)
 assert math.fabs(f_ad.FD.arctan(0.5) - 0.46364760900080615 ) < 1e-7
+
+# dx of sinh(x)*cosh(x)*tanh(x)
+a = f_ad.FD("a", 0.5, 1)
+e = f_ad.FD.sinh(a)*f_ad.FD.cosh(a)*f_ad.FD.tanh(a)*f_ad.FD.sinh(2)*f_ad.FD.cosh(4)**f_ad.FD.tanh(6)
+assert math.fabs(e.value - 26.89311502036146 ) < 1e-7
+assert math.fabs(e.grad() - 116.39089610875486  ) < 1e-7
