@@ -240,7 +240,7 @@ def test_float():
     F1.set_point(vd)
     assert math.fabs(F1.val() - 5e-10) < 1e-7
     
-def test_float2():
+def test_float1():
     f1 = "5.11"
     vd = ""
     F1 = symdif.SD(f1)
@@ -253,3 +253,10 @@ def test_float2():
     F1 = symdif.SD(f1)
     F1.set_point(vd)
     assert math.fabs(F1.val() - 5.111) < 1e-7
+    
+def test_float3():
+    f1 = "e*pi"
+    vd = ""
+    F1 = symdif.SD(f1)
+    F1.set_point(vd)
+    assert math.fabs(F1.val() - math.e*math.pi) < 1e-7
