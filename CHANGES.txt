@@ -1,1 +1,2 @@
 v0.0.1, 11/05/2018 -- Initial release.
+v0.1.0, 12/11/2018 -- Implementation of forward and reverse mode differentiation in 'AD/for_ad.py' and 'AD/rev_ad.py' respectively.
