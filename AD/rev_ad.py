@@ -1,6 +1,10 @@
 import math
 
 class Var:
+    """
+    Var class used for reverse AD
+    If derivative doesn't exist at a point for one of the variables, forward AD should be used
+    """
     def __init__(self, name, value):
         self.value = value
         self.children = []
@@ -8,14 +12,17 @@ class Var:
         self.name = name
 
     def __str__(self):
+        """ returns the string of the formula """
         return self.name
 
     def grad(self):
+        """ returns the gradient of the formula with respect to the variable """
         if self.grad_value is None:
             self.grad_value = sum(val * var.grad() for val, var in self.children)
         return self.grad_value
 
     def __add__(self, other):
+        """ adds the vars, returns a new formula and appens children to the variables """
         n = str(self) + "+" + str(other)
         if not isinstance(other, Var):
             z = Var(n, self.value + other)
@@ -30,6 +37,7 @@ class Var:
         return self.__add__(other)
 
     def __sub__(self, other):
+        """ subtracts the vars, returns a new formula and appens children to the variables """
         n = "(" + str(self) + ")" + "-(" + str(other) + ")"
         if not isinstance(other, Var):
             z = Var(n, self.value - other)
@@ -47,6 +55,7 @@ class Var:
         return z
 
     def __mul__(self, other):
+        """ multiply the vars, returns a new formula and appens children to the variables """
         n = "(" + str(self) + ")" + "*(" + str(other) + ")"
         if not isinstance(other, Var):
             z = Var(n, self.value * other)
@@ -61,6 +70,7 @@ class Var:
         return self.__mul__(other)
 
     def __truediv__(self, other):
+        """ divides the vars, returns a new formula and appens children to the variables """
         n = "(" + str(self) + ")" + "/(" + str(other) + ")"
         if not isinstance(other, Var):
             z = Var(n, self.value / other)
@@ -78,6 +88,7 @@ class Var:
         return z
 
     def __pow__(self, other):
+        """ exponentiates the vars, returns a new formula and appens children to the variables """
         n = "POW(" + str(self) + "," + str(other) + ")"
         if not isinstance(other, Var):
             z = Var(n, self.value ** other)
@@ -95,6 +106,7 @@ class Var:
         return z
 
 def sin(x):
+    """ calculates sin of the formula/var x """
     if not isinstance(x, Var):
         print('Bingo')
         return math.sin(x)
@@ -104,6 +116,7 @@ def sin(x):
     return z
 
 def cos(x):
+    """ calculates cos of the formula/var x """
     if not isinstance(x, Var):
         return math.cos(x)
     n = "cos(" + str(x) + ")"
@@ -112,6 +125,7 @@ def cos(x):
     return z
 
 def tan(x):
+    """ calculates tan of the formula/var x """
     if not isinstance(x, Var):
         return math.tan(x)
     n = "tan(" + str(x) + ")"
@@ -120,6 +134,7 @@ def tan(x):
     return z
 
 def ln(x):
+    """ calculates ln of the formula/var x """
     if not isinstance(x, Var):
         return math.log(x)
     n = "ln(" + str(x) + ")"
@@ -128,6 +143,7 @@ def ln(x):
     return z
 
 def arcsin(x):
+    """ calculates arcsin of the formula/var x """
     if not isinstance(x, Var):
         return math.asin(x)
     n = "arcsin(" + str(x) + ")"
@@ -136,6 +152,7 @@ def arcsin(x):
     return z
 
 def arccos(x):
+    """ calculates arccos of the formula/var x """
     if not isinstance(x, Var):
         return math.acos(x)
     n = "arccos(" + str(x) + ")"
@@ -144,15 +161,16 @@ def arccos(x):
     return z
 
 def arctan(x):
+    """ calculates arctan of the formula/var x """
     if not isinstance(x, Var):
         return math.atan(x)
     n = "arctan(" + str(x) + ")"
     z = Var(n, math.atan(x.value))
     x.children.append((1.0/(1.0+x.value**2), z))
     return z
-# COS, TAN, LOG, ARCSIN, ARCCOS, ARCTAN, SINH, COSH, TANH, COTH, SECH, CSCH
 
 def sinh(x):
+    """ calculates sinh of the formula/var x """
     if not isinstance(x, Var):
         return math.sinh(x)
     n = "sinh(" + str(x) + ")"
@@ -161,6 +179,7 @@ def sinh(x):
     return z
 
 def cosh(x):
+    """ calculates cosh of the formula/var x """
     if not isinstance(x, Var):
         return math.cosh(x)
     n = "cosh(" + str(x) + ")"
@@ -169,37 +188,10 @@ def cosh(x):
     return z
 
 def tanh(x):
+    """ calculates tanh of the formula/var x """
     if not isinstance(x, Var):
         return math.tanh(x)
     n = "tanh(" + str(x) + ")"
     z = Var(n, math.tanh(x.value))
     x.children.append((1.0-math.tanh(x.value)**2, z))
     return z
-
-
-x = Var("x", 0)
-y = Var("y", 1)
-z = Var("z", 4)
-d = math.e**(x+y)
-
-d.grad_value = 1.0
-
-#print(str(d))
-#print(x.grad())
-#print(y.grad())
-#print(z.grad())
-
-'''
-Usage
-a = Var(3)
-x = Var(2)
-y = Var(3)
-w = Var(4)
-z = x*(x**y**w)/(y*w)
-
-z.grad_value = 1.0
-
-print(x.grad())
-print(y.grad())
-print(w.grad())
-'''
