@@ -1,5 +1,7 @@
 import math
 
+print('Importing Reverse Mode Automatic Differentiation')
+
 class Var:
     """
     Var class used for reverse AD

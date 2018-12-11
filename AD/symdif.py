@@ -12,6 +12,7 @@ class SD():
         self.parser = ast.Parser(self.lexer)
         self.interpreter = ast.Interpreter(self.parser)
         self.vd = None
+        print('Importing Symbolic Differentiation')
 
     def set_point(self, vd):
         """
