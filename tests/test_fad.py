@@ -206,6 +206,14 @@ assert math.fabs(e.grad() - 2.0 ) < 1e-7
 # ln(0.5)
 assert math.fabs(f_ad.FD.ln(0.5) + 0.6931471805599453 ) < 1e-7
 
+# dx of log(x, math.e) at x=0 : 1/x => 1/0.5= 2.0
+a = f_ad.FD("a", 0.5, 1)
+e = f_ad.FD.log(a,math.e)
+assert math.fabs(e.value + 0.6931471805599453 ) < 1e-7
+assert math.fabs(e.grad() - 2.0 ) < 1e-7
+# ln(0.5)
+assert math.fabs(f_ad.FD.log(0.5,math.e) + 0.6931471805599453 ) < 1e-7
+
 # dx of arcsin(x) at x=0.5 = 1.1547005383792517 ( value : 0.5235987755982988 ) 
 a = f_ad.FD("a", 0.5, 1)
 e = f_ad.FD.arcsin(a)
@@ -230,8 +238,15 @@ assert math.fabs(e.grad() - 0.8  ) < 1e-7
 # arcos(0.5)
 assert math.fabs(f_ad.FD.arctan(0.5) - 0.46364760900080615 ) < 1e-7
 
-# dx of sinh(x)*cosh(x)*tanh(x)
+# dx of sinh(x)*cosh(x)**tanh(x)
 a = f_ad.FD("a", 0.5, 1)
 e = f_ad.FD.sinh(a)*f_ad.FD.cosh(a)*f_ad.FD.tanh(a)*f_ad.FD.sinh(2)*f_ad.FD.cosh(4)**f_ad.FD.tanh(6)
 assert math.fabs(e.value - 26.89311502036146 ) < 1e-7
 assert math.fabs(e.grad() - 116.39089610875486  ) < 1e-7
+
+# dx of sqrt(x) at x=25 :  (value 25^0.5=5)
+a = f_ad.FD("a", 25, 1)
+e = f_ad.FD.sqrt(a)
+assert math.fabs(e.value - 5 ) < 1e-7
+assert math.fabs(e.grad() + 0.1 ) < 1e-7
+assert math.fabs( f_ad.FD.sqrt(49) - 7 ) < 1e-7

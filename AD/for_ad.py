@@ -105,7 +105,14 @@ class FD:
         n = "ln(" + str(x) + ")"
         z = FD(n, math.log(x.value), x.dual/x.value)
         return z
-
+    
+    def log(x, base):
+        if not isinstance(x, FD):
+          return math.log(x,base)
+        n = "log(" + str(x) + ")/log(" + str(base) + ")"
+        z = FD(n, math.log(x.value)/math.log(base), x.dual/(x.value*math.log(base)) )
+        return z
+        
     def arcsin(x):
         if not isinstance(x, FD):
           return math.asin(x)
@@ -147,3 +154,11 @@ class FD:
         n = "tanh(" + str(x) + ")"
         z = FD(n, math.tanh(x.value), x.dual*(1.0-math.tanh(x.value)**2))
         return z
+    
+    def sqrt(x):
+        if not isinstance(x, FD):
+          return math.sqrt(x)
+        n = "sqrt(" + str(x) + ")"
+        z = FD(n, math.sqrt(x.value), -0.5*x.dual/math.sqrt(x.value) )
+        return z
+       
