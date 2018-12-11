@@ -4,46 +4,6 @@ import sympy
 class SD():
     """
     User friendly interface for the AST interpreter.
-    Usage
-    =============
-    import symdif
-    def main():
-        f1 = "x*y*z"
-        vd = "x:2,y:3,z:4"
-        F1 = symdif.SD(f1)
-        print(F1.diff_all(vd))
-        print(F1.diff("x"))
-        F1.new_formula("a+b")
-        vd = "a:10, b : 1"
-        F1.set_point(vd)
-        print(F1.val())
-        print(F1.diff_all())
-
-        // higher order derivative
-        f1 = "x*x*x*y*y"
-        vd = "x:2,y:3"
-        F1 = autodif.AD(f1)
-        F1.set_point(vd)
-        ret = F1.diff("x", order=3)
-        print(ret)
-        ret = F1.diff("y", order=2)
-        print(ret)
-    
-        // symbolic differentiation
-        f1 = "POW(x,3.0)*3.0/x*3.0/x+POW(x,3.0)*(3.0)/x/x/y/y"
-        vd = "x:2,y:3"
-        F1 = symdif.SD(f1)
-        F1.set_point(vd)
-        F1.symbolic_diff("x", output='default')
-           output: '9.0 + 3.0/y**2'
-        F1.symbolic_diff("x", output='latex')
-           output: '9.0 + \\frac{3.0}{y^{2}}'
-        F1.symbolic_diff("x", output='pretty')
-                         3.0
-           output: 9.0 + ---
-                           2
-                         y
-        F1.symbolic_diff("x", output='all') # to print all the results
     """
 
     def __init__(self, frmla):
@@ -54,12 +14,20 @@ class SD():
         self.vd = None
 
     def set_point(self, vd):
+        """
+        sets the point to derive at
+        """
         if vd is not None:
             self.vd = vd
         if self.vd is None:
             raise NameError("Must set point to evaluate")
     
     def diff(self, dv, vd=None, order=1):
+        """
+        returns numeric derivative with respect to variable dv
+        vd is used to set a new point
+        order is the order of the derivative to take
+        """
         self.set_point(vd)
         new_interpreter = self.interpreter
         for i in range(order-1):
@@ -70,6 +38,11 @@ class SD():
         return new_interpreter.differentiate(self.vd, dv)
     
     def symbolic_diff(self, dv, vd=None, order=1, output='default'):
+        """
+        returns symbolic derivative with respect to variable dv
+        vd is used to set a new point
+        order is the order of the derivative to take
+        """
         self.set_point(vd)
         new_interpreter = self.interpreter
         for i in range(order-1):
@@ -82,14 +55,23 @@ class SD():
         return simplified
     
     def diff_all(self, vd=None):
+        """
+        returns numeric derivative of all variables
+        """
         self.set_point(vd)
         return self.interpreter.diff_all(self.vd)
     
     def val(self, vd=None):
+        """
+        returns the value of the function at the point
+        """
         self.set_point(vd)
         return self.interpreter.interpret(self.vd)
     
     def new_formula(self, frmla):
+        """
+        sets a new formula for the object
+        """
         self.formula = frmla
         self.lexer = ast.Lexer(frmla)
         self.parser = ast.Parser(self.lexer)
@@ -97,6 +79,7 @@ class SD():
         self.vd = None
 
     def symplify(self, formul, output):
+        """ simplifies a formula string, output changes output format """
         def POW(a, b):
             return a ** b
             
@@ -124,13 +107,12 @@ class SD():
         def TANH(a): # Inverse trigonometric functions: inverse tangent or arctangent    
             return sympy.tanh(a)
         
-        # Not needed!    
-        #def ARCSIN(a): # Inverse trigonometric functions: inverse sine or arcsine    
-        #    return sympy.asin(a)
-        #def ARCCOS(a): # Inverse trigonometric functions: inverse cosine or arccosine    
-        #    return sympy.acos(a)
-        #def ARCTAN(a): # Inverse trigonometric functions: inverse tangent or arctangent    
-        #    return sympy.atan(a)
+        def ARCSIN(a): # Inverse trigonometric functions: inverse sine or arcsine    
+            return sympy.asin(a)
+        def ARCCOS(a): # Inverse trigonometric functions: inverse cosine or arccosine    
+            return sympy.acos(a)
+        def ARCTAN(a): # Inverse trigonometric functions: inverse tangent or arctangent    
+            return sympy.atan(a)
         
         string_for_sympy=""
         string_for_sympy2=""
