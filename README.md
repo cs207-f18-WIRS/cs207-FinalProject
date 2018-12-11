@@ -1,5 +1,5 @@
 # CS207 Final Project Repository
-[![Build Status](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject.svg?branch=master&service=github)](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject&service=github)
+[![Build Status](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject.svg?branch=master)](https://travis-ci.com/cs207-f18-WIRS/cs207-FinalProject&service=github)
 
 [![Coverage Status](https://coveralls.io/repos/github/cs207-f18-WIRS/cs207-FinalProject/badge.svg?branch=master&service=github)](https://coveralls.io/github/cs207-f18-WIRS/cs207-FinalProject?branch=master&service=github)
 
